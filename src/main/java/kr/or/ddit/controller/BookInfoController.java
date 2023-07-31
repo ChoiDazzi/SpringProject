@@ -1,6 +1,7 @@
 package kr.or.ddit.controller;
 
 import kr.or.ddit.service.BookInfoService;
+import kr.or.ddit.util.ArticlePage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -79,7 +80,11 @@ public class BookInfoController {
 
 		log.info("data={}", data);
 
-		mav.addObject("data", data);
+		int total = this.bookInfoService.getBookInfoTotal();
+		log.info("total={}", total);
+
+		//페이징 처리한 data
+		mav.addObject("data", new ArticlePage<BookInfoVO>(total, currentPage, size, data));
 
 		mav.setViewName("bookInfo/listBook");
 		return mav;

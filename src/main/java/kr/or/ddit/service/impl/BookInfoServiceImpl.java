@@ -84,4 +84,9 @@ public class BookInfoServiceImpl implements BookInfoService {
         return bookInfoDao.listBook(map);
     }
 
+    @Override
+    public int getBookInfoTotal() {
+        return bookInfoDao.getBookInfoTotal();
+    }
+
 }

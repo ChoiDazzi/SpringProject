@@ -26,6 +26,7 @@
 	</select>
 
 	<resultMap type="bookInfoVO" id="bookInfoMap">
+		<result property="rnum" column="RNUM" />
 		<result property="bookId" column="BOOK_ID" />
 		<result property="name" column="NAME" />
 		<result property="unitPrice" column="UNIT_PRICE" />
@@ -60,7 +61,7 @@
 						   A.TOTAL_PAGES, A.RELEASE_DATE, A.CONDITION,
 						   B.SEQ, B.FILENAME
 					FROM BOOK_INFO A LEFT OUTER JOIN ATTACH B
-													 ON(A.BOOK_ID = B.BOOK_ID)
+					ON(A.BOOK_ID = B.BOOK_ID)
 					ORDER BY A.BOOK_ID DESC
 				) T
 		)
@@ -69,6 +70,11 @@
 		WHERE U.RNUM BETWEEN (#{currentPage} * #{size}) - (#{size} - 1) AND (#{currentPage} * #{size})
 		]]>
 	</select>
+
+	<select id="getBookInfoTotal" resultType="int">
+		SELECT COUNT(*) FROM BOOK_INFO
+	</select>
+
 </mapper>
 
 

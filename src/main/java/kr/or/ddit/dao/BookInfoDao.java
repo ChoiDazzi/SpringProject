@@ -30,4 +30,7 @@ public class BookInfoDao {
     public List<BookInfoVO> listBook(Map<String, Object> map){
         return sqlSessionTemplate.selectList("bookInfo.listBook", map);
     }
+    public int getBookInfoTotal() {
+        return sqlSessionTemplate.selectOne("bookInfo.getBookInfoTotal");
+    }
 }
