@@ -1,6 +1,7 @@
 package kr.or.ddit.service;
 
 import kr.or.ddit.vo.BookInfoVO;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.Map;

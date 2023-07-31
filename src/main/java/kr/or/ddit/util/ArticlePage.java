@@ -8,6 +8,7 @@ public class ArticlePage<T> {
     private int currentPage;    //현재페이지 번호
     private int totalPages;     //전체페이지 수
     private int startPage;      //시작페이지 번호
+    private int size;
     private int endPage;        //종료페이지 번호
     private List<T> content;    //데이터
     //생성자(Constructor): 페이징 정보를 생성
@@ -16,6 +17,7 @@ public class ArticlePage<T> {
         this.total = total;
         this.currentPage = currentPage;
         this.content = content;
+        this.size = size;
 
         if (total == 0) { //전체 글 수가 0이라면?
             this.totalPages = 0;
@@ -38,7 +40,7 @@ public class ArticlePage<T> {
             endPage = startPage + (5-1);
 
             //종료페이지번호 > 전체페이지 수보다 클 때
-            if (endPage < totalPages) {
+            if (endPage > totalPages) {
                 endPage = totalPages;
             }
         }
@@ -90,6 +92,14 @@ public class ArticlePage<T> {
 
     public void setContent(List<T> content) {
         this.content = content;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
     }
 
     public boolean hasNoArticles() {

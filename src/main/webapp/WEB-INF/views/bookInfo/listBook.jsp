@@ -83,7 +83,6 @@
                                     <td>${bookInfoVO.author}</td>
                                     <td>${bookInfoVO.publisher}</td>
                                     <td>${bookInfoVO.releaseDate}</td>
-
                                 </tr>
                             </c:forEach>
                             </tbody>
@@ -103,10 +102,13 @@
                                     id="dataTable_previous"><a href="#"
                                                                aria-controls="dataTable" data-dt-idx="0" tabindex="0"
                                                                class="page-link">Previous</a></li>
-
-                                <li class="paginate_button page-item active"><a href="#"
-                                                                                aria-controls="dataTable" data-dt-idx="1" tabindex="0"
-                                                                                class="page-link">1</a></li>
+                                <c:forEach var="pNo" begin="${data.startPage}" end="${data.endPage}">
+                                <li class='paginate_button page-item <c:if test = "${param.currentPage == pNo}"> active </c:if>' >
+                                        <a href="/bookInfo/listBook?currentPage=${pNo}" aria-controls="dataTable" data-dt-idx="1" tabindex="0" class="page-link">
+                                            ${pNo}
+                                        </a>
+                                    </li>
+                                </c:forEach>
                                 <li class="paginate_button page-item next" id="dataTable_next"><a
                                         href="#" aria-controls="dataTable" data-dt-idx="7" tabindex="0"
                                         class="page-link">Next</a></li>
