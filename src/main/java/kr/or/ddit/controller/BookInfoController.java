@@ -1,0 +1,87 @@
+package kr.or.ddit.controller;
+
+import kr.or.ddit.service.BookInfoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
+import kr.or.ddit.vo.BookInfoVO;
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@Slf4j
+@Controller
+public class BookInfoController {
+	@Autowired
+	BookInfoService bookInfoService;
+
+	//요청URI : /bookInfo/addBook
+	@RequestMapping(value = "/bookInfo/addBook", method = RequestMethod.GET)
+	public ModelAndView addBook(ModelAndView mav) {
+		//forwarding
+		//tiles-config.xml에서 <definition name="			*/  *"
+		//										bookInfo/addBook
+		//						/WEB-INF/views/{1}		/{2}	.jsp
+		mav.setViewName("bookInfo/addBook");
+		
+		return mav;
+	}
+	
+	/**
+	 요청URL : /bookInfo/addBookPost
+	요청파라미터 : {bookId=ISBN1234,name=...}
+	요청방식 : post 
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/bookInfo/addBookPost", method = RequestMethod.POST)
+	public int addBookPost(ModelAndView mav,
+			@ModelAttribute BookInfoVO bookInfoVO) {
+		log.info("bookInfoVO : " + bookInfoVO);
+
+		int result = bookInfoService.addBookPost(bookInfoVO);
+		log.info("addBookPost => result={}", result);
+		//forwarding
+		//mav.setViewName("bookInfo/detailBook");
+		
+		return result;
+	}
+
+	/** [도서코드 자동생성]
+	 *
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/bookInfo/getBookId" , method = RequestMethod.POST)
+	public String getBookId() {
+		String bookId = bookInfoService.getBookId();
+
+		log.info("bookId={}", bookId);
+
+		return bookId;
+	}
+
+	//VO: @ModelAttribute
+	//map, String: @RequestParam
+	//도서목록
+	@RequestMapping(value = "/bookInfo/listBook", method = RequestMethod.GET)
+	public ModelAndView listBook(ModelAndView mav,
+								 @RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
+								 @RequestParam (value = "size", required = false, defaultValue = "10") int size) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("currentPage", currentPage);
+		map.put("size", size);
+
+		log.info("listBook => map ={}", map);
+		List<BookInfoVO> data = bookInfoService.listBook(map);
+
+		log.info("data={}", data);
+
+		mav.addObject("data", data);
+
+		mav.setViewName("bookInfo/listBook");
+		return mav;
+	}
+}
