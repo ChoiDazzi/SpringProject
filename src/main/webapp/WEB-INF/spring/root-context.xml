@@ -38,9 +38,9 @@
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" 
 		destroy-method="close">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
-		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
-		<property name="username" value="system" />
-		<property name="password" value="java" />
+		<property name="url" value="jdbc:oracle:thin:@125.138.66.183:1521:xe" />
+		<property name="username" value="ggang" />
+		<property name="password" value="ggang" />
 	</bean>
 	<!-- 
 	데이터베이스와 연결을 맺고 끊어질 때까지의 라이프 사이클을 관리해주는 sqlSession 객체를 생성
