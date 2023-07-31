@@ -86,8 +86,6 @@ public class BookInfoController {
 		//페이징 처리한 data
 		mav.addObject("data", new ArticlePage<BookInfoVO>(total, currentPage, size, data));
 
-		log.info("currentPage={}", currentPage);
-		log.info("s={}", size);
 		mav.setViewName("bookInfo/listBook");
 		return mav;
 	}
