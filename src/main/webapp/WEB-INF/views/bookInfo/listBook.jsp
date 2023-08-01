@@ -102,7 +102,7 @@
                                 <c:if test='${stat.count%2!=0}'>odd</c:if>">
                                     <td class="sorting_1">${bookInfoVO.rnum}</td>
                                     <td>${bookInfoVO.category}</td>
-                                    <td>${bookInfoVO.name}</td>
+                                    <td><a href="/bookInfo/detailBook?bookId=${bookInfoVO.bookId}">${bookInfoVO.name}</a></td>
                                     <td>${bookInfoVO.description}</td>
                                     <td>${bookInfoVO.author}</td>
                                     <td>${bookInfoVO.publisher}</td>
@@ -124,7 +124,12 @@
                     <div class="row">
                         <div class="col-sm-12 col-md-5">
                             <div class="dataTables_info" id="dataTable_info" role="status"
-                                 aria-live="polite">Showing 1 to 10 of 57 entries</div>
+                                 aria-live="polite">
+                                Showing ${(data.currentPage * data.size) - (data.size - 1)}
+                                <c:if test="${data.total <= data.size}">to ${data.total}</c:if>
+                                <c:if test="${data.total > data.size}"> to ${data.currentPage * data.size}</c:if>
+                                of ${data.total} entries
+                            </div>
                         </div>
                         <div class="col-sm-12 col-md-7">
                             <div class="dataTables_paginate paging_simple_numbers"

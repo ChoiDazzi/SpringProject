@@ -33,4 +33,5 @@ public class BookInfoDao {
     public int getBookInfoTotal(Map<String,Object> map) {
         return sqlSessionTemplate.selectOne("bookInfo.getBookInfoTotal",map);
     }
+
 }
