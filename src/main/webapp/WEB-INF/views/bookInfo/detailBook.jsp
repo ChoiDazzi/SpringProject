@@ -6,7 +6,8 @@
 <script type="text/javascript" src="/resources/ckeditor/ckeditor.js"></script>
 
 <div class="row" id="row">
-    <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+    <div class="col-lg-5 d-none d-lg-block bg-register-image"
+         style="background-image:url('/resources/images${data.attachVOList[0].filename}')"></div>
     <div class="col-lg-7">
         <div class="p-5">
             <div class="text-center">
@@ -94,14 +95,56 @@
                         <input type="file" class="form-control" id="bookImage" name="bookImage"/>
                     </div>
                 </div>
-                <button type="submit"class="btn btn-primary btn-user btn-block">
-                    도서 등록</button>
+                <div id="div1">
+                    <p>
+                        <button id="edit" type="button"class="btn btn-primary btn-user btn-block"
+                                style="width: 50%; float: left;">수정</button>
+                        <button id="delete" type="button"class="btn btn-primary btn-user btn-block"
+                                style="width: 50%;">삭제</button>
+                    </p>
+                    <p>
+                        <a href="/bookInfo/listBook" class="btn btn-success btn-user btn-block">목록</a>
+                    </p>
+                </div>
+
+                <div id="div2" style="display: none;">
+                    <button type="button" class="btn btn-primary btn-user btn-block">확인</button>
+                    <a href="/bookInfo/detailBook?bookId=${param.bookId}" class="btn btn-success btn-user btn-block">취소</a>
+                </div>
             </form>
         </div>
     </div>
 </div>
 <script type="text/javascript">
     CKEDITOR.replace("description");
+
+    $("#edit").on("click", function(){
+        $("#div1").css("display", "none");
+        $("#div2").css("display", "block");
+
+        $(".form-control-user").removeAttr("readonly");
+
+        $("#category").removeAttr("disabled");
+
+        //$("input[name='condition']").attr("disabled","disabled");
+        $("input[type= 'radio']").attr("onclick", "return(true);");
+
+        $("#bookImage").parent().parent().css("display","block");
+
+        CKEDITOR.instance['description'].setReadOnly(false);
+
+    })
+
+    $(".form-control-user").attr("readonly","readonly");
+
+    $("#category").attr("disabled","disabled");
+
+    //$("input[name='condition']").attr("disabled","disabled");
+    $("input[type= 'radio']").attr("onclick", "return(false);");
+
+    $("#bookImage").parent().parent().css("display","none");
+    //CKEDITOR
+    CKEDITOR.instance['description'].setReadOnly(true);
 
     //이미지 미리보기 시작///////////////////////////////
     //<input type="file" name="bookImage"...
@@ -169,5 +212,6 @@
             }
         })
     })
+
 
 </script>

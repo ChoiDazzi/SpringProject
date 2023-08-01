@@ -91,8 +91,12 @@
 		<include refid="search"></include>
 	</select>
 
-	<select id="detailBook" parameterType="String" resultType="bookInfoVO">
-		SELECT * FROM BOOK_INFO WHERE BOOK_ID = #{bookId}
+	<select id="detailBook" parameterType="String" resultMap="bookInfoMap">
+		SELECT B.BOOK_ID, B.NAME, B.UNIT_PRICE, B.AUTHOR, B.DESCRIPTION
+			 , B.PUBLISHER, B.CATEGORY, B.UNITS_IN_STOCK, B.TOTAL_PAGES, B.RELEASE_DATE, B.CONDITION
+			 , A.SEQ, A.BOOK_ID, A.FILENAME
+		FROM BOOK_INFO B LEFT OUTER JOIN ATTACH A ON(B.BOOK_ID = A.BOOK_ID)
+		WHERE B.BOOK_ID = #{bookId}
 	</select>
 </mapper>
 

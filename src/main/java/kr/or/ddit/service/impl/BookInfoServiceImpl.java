@@ -32,7 +32,7 @@ public class BookInfoServiceImpl implements BookInfoService {
         AttachVO attachVO = new AttachVO();
         attachVO.setBookId(bookInfoVO.getBookId()); //참조무결성
 
-        String uploadFolder = "/Users/ChoiSeoYeon/Downloads/springProj (1)/src/main/webapp/resources/images";
+        String uploadFolder = "/Users/ChoiSeoYeon/SpringExercises/springProj/src/main/webapp/resources/images";
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
         String str = formatter.format(date);
@@ -61,7 +61,7 @@ public class BookInfoServiceImpl implements BookInfoService {
             multipartFile.transferTo(saveFile);
             //str: ..2023-07-28
             //window : "/" + str.replace("-", File.separator).replace("\\","/") + uploadFileName
-            attachVO.setFilename("/" + str.replace("-", File.separator) + uploadFileName);
+            attachVO.setFilename("/" + str.replace("-", File.separator) + "/" + uploadFileName);
 
             result += bookInfoDao.addAttach(attachVO); //자식
             log.info("final result={}", result);
