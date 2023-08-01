@@ -97,7 +97,9 @@
                                 stat.index: 0부터 시작
                             -->
                             <c:forEach var="bookInfoVO" items="#{data.content}" varStatus="stat">
-                                <tr class="odd">
+                                <tr class="
+                                <c:if test='${stat.count%2==0}'>even</c:if>
+                                <c:if test='${stat.count%2!=0}'>odd</c:if>">
                                     <td class="sorting_1">${bookInfoVO.rnum}</td>
                                     <td>${bookInfoVO.category}</td>
                                     <td>${bookInfoVO.name}</td>
