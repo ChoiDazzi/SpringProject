@@ -85,7 +85,7 @@
 		WHERE U.RNUM BETWEEN (#{currentPage} * #{size}) - (#{size} - 1) AND (#{currentPage} * #{size})
 	</select>
 
-	<select id="getBookInfoTotal" resultType="int">
+	<select id="getBookInfoTotal" parameterType="hashMap" resultType="int">
 		SELECT COUNT(*) FROM BOOK_INFO
 		WHERE  1 = 1
 		<include refid="search"></include>

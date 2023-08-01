@@ -82,7 +82,7 @@ public class BookInfoController {
 
 		log.info("data={}", data);
 
-		int total = this.bookInfoService.getBookInfoTotal();
+		int total = this.bookInfoService.getBookInfoTotal(map);
 		log.info("total={}", total);
 
 		//페이징 처리한 data

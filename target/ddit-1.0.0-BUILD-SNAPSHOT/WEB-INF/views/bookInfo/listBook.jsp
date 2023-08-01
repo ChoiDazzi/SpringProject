@@ -2,6 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script src="/resources/js/jquery-3.6.0.js"></script>
 
+<!-- data = ArticlePage.java-->
+
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
@@ -33,6 +35,7 @@
                         <div class="col-sm-12 col-md-6">
                             <div id="dataTable_filter" class="dataTables_filter">
                                 <label>Search:<input type="text" name="keyword"
+                                                     value="${param.keyword}"
                                                      class="form-control form-control-sm" placeholder="검색어를 입력해주세요."
                                                      aria-controls="dataTable"></label>
                                 <label>
@@ -104,47 +107,56 @@
                                     <td>${bookInfoVO.releaseDate}</td>
                                 </tr>
                             </c:forEach>
+                            <!-- total==0 이면 true -->
+                            <c:if test="${data.hasNoArticles()}">
+                                <tr class="odd text-center">
+                                    <td colspan="7">데이터가 존재하지 않습니다.</td>
+                                </tr>
+                            </c:if>
                             </tbody>
                         </table>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-12 col-md-5">
-                        <div class="dataTables_info" id="dataTable_info" role="status"
-                             aria-live="polite">Showing 1 to 10 of 57 entries</div>
-                    </div>
-                    <div class="col-sm-12 col-md-7">
-                        <div class="dataTables_paginate paging_simple_numbers"
-                             id="dataTable_paginate">
-                            <ul class="pagination">
-                                <li class="paginate_button page-item previous <c:if test='${data.startPage < 6}'>disabled</c:if>"
-                                    id="dataTable_previous"><a href="/bookInfo/listBook?currentPage=${data.startPage - 5}"
-                                                               aria-controls="dataTable" data-dt-idx="0" tabindex="0"
-                                                               class="page-link">Previous</a></li>
-                                <c:forEach var="pNo" begin="${data.startPage}" end="${data.endPage}">
-                                <li class='paginate_button page-item <c:if test = "${param.currentPage == pNo}"> active </c:if>' >
-                                        <a href="/bookInfo/listBook?currentPage=${pNo}&size=${data.size}" aria-controls="dataTable" data-dt-idx="1" tabindex="0" class="page-link">
-                                            ${pNo}
-                                        </a>
-                                    </li>
-                                </c:forEach>
-                                <!--부등호로 써도 된다.
-                                    eq: equal           (==)
-                                    ne: not equal       (!=)
-                                    lt: less than       (<)
-                                    gt: greater than    (>)
-                                    le: less equal      (<=)
-                                    ge: greater equal   (>=)
-                                -->
-                                <li class="paginate_button page-item next
-                                        <c:if test='${data.endPage ge data.totalPages}'>disabled</c:if>"
-                                    id="dataTable_next"><a
-                                        href="/bookInfo/listBook?currentPage=${data.startPage + 5}" aria-controls="dataTable" data-dt-idx="7" tabindex="0"
-                                        class="page-link">Next</a></li>
-                            </ul>
+                <!-- total>0 : true -->
+                <c:if test="${data.hasArticles()}">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-5">
+                            <div class="dataTables_info" id="dataTable_info" role="status"
+                                 aria-live="polite">Showing 1 to 10 of 57 entries</div>
+                        </div>
+                        <div class="col-sm-12 col-md-7">
+                            <div class="dataTables_paginate paging_simple_numbers"
+                                 id="dataTable_paginate">
+                                <ul class="pagination">
+                                    <li class="paginate_button page-item previous <c:if test='${data.startPage < 6}'>disabled</c:if>"
+                                        id="dataTable_previous"><a href="/bookInfo/listBook?currentPage=${data.startPage - 5}&size=${data.size}&keyword=${param.keyword}"
+                                                                   aria-controls="dataTable" data-dt-idx="0" tabindex="0"
+                                                                   class="page-link">Previous</a></li>
+                                    <c:forEach var="pNo" begin="${data.startPage}" end="${data.endPage}">
+                                    <li class='paginate_button page-item <c:if test = "${param.currentPage == pNo}"> active </c:if>' >
+                                            <a href="/bookInfo/listBook?currentPage=${pNo}&size=${data.size}&keyword=${param.keyword}" aria-controls="dataTable" data-dt-idx="1" tabindex="0" class="page-link">
+                                                ${pNo}
+                                            </a>
+                                        </li>
+                                    </c:forEach>
+                                    <!--부등호로 써도 된다.
+                                        eq: equal           (==)
+                                        ne: not equal       (!=)
+                                        lt: less than       (<)
+                                        gt: greater than    (>)
+                                        le: less equal      (<=)
+                                        ge: greater equal   (>=)
+                                    -->
+                                    <li class="paginate_button page-item next
+                                            <c:if test='${data.endPage ge data.totalPages}'>disabled</c:if>"
+                                        id="dataTable_next"><a
+                                            href="/bookInfo/listBook?currentPage=${data.startPage + 5}&size=${data.size}&keyword=${param.keyword}" aria-controls="dataTable" data-dt-idx="7" tabindex="0"
+                                            class="page-link">Next</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </c:if>
             </div>
         </div>
     </div>
