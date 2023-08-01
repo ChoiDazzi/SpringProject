@@ -51,8 +51,8 @@ public class BookInfoController {
 		return result;
 	}
 
-	/** [도서코드 자동생성]
-	 *
+	/**
+	 * [도서코드 자동생성]
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/bookInfo/getBookId" , method = RequestMethod.POST)
@@ -70,12 +70,14 @@ public class BookInfoController {
 	@RequestMapping(value = "/bookInfo/listBook", method = RequestMethod.GET)
 	public ModelAndView listBook(ModelAndView mav,
 								 @RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
-								 @RequestParam (value = "size", required = false, defaultValue = "10") int size) {
+								 @RequestParam (value = "size", required = false, defaultValue = "10") int size,
+								 @RequestParam (value = "keyword", required = false, defaultValue = "") String keyword) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("currentPage", currentPage);
 		map.put("size", size);
+		map.put("keyword", keyword);
 
-		log.info("listBook => map ={}", map);
+		log.info("listBook => map={}", map);
 		List<BookInfoVO> data = bookInfoService.listBook(map);
 
 		log.info("data={}", data);
