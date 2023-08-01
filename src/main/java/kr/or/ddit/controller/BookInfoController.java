@@ -99,7 +99,7 @@ public class BookInfoController {
 		BookInfoVO bookInfoVO = bookInfoService.detailBook(bookId);
 
 		log.info("bookInfoVO={}", bookInfoVO);
-
+		mav.addObject("data", bookInfoVO);
 		mav.setViewName("bookInfo/detailBook");
 		return mav;
 	}
