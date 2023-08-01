@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<script src="/resources/js/jquery-3.6.0.js"></script>
+
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
@@ -10,13 +12,19 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
                         <div class="dataTables_length" id="dataTable_length">
-                            <label>Show <select name="dataTable_length"
+                            <!--
+                                select: selected
+                                radio: checked
+                                checkbox: checked
+                            -->
+                            <label>SIZE <select id="selSize" name="size"
                                                 aria-controls="dataTable"
-                                                class="custom-select custom-select-sm form-control form-control-sm"><option
-                                    value="10">10</option>
-                                <option value="25">25</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option></select> entries
+                                                class="custom-select custom-select-sm form-control form-control-sm">
+
+                                <option value="10" <c:if test="${param.size=='10'}">selected</c:if>>10</option>
+                                <option value="25" <c:if test="${param.size=='25'}">selected</c:if>>25</option>
+                                <option value="50" <c:if test="${param.size=='50'}">selected</c:if>>50</option>
+                                <option value="100" <c:if test="${param.size=='100'}">selected</c:if>>100</option></select> entries
                             </label>
                         </div>
                     </div>
@@ -130,3 +138,12 @@
         </div>
     </div>
 </div>
+
+<script>
+    $("#selSize").on("change", function (){
+        let sVal = $(this).val();
+        console.log("sVal: ", sVal);
+
+        location.href = "/bookInfo/listBook?currentPage=${data.currentPage}&size=" + sVal;
+    })
+</script>
