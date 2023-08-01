@@ -91,6 +91,9 @@
 		<include refid="search"></include>
 	</select>
 
+	<select id="detailBook" parameterType="String" resultType="bookInfoVO">
+		SELECT * FROM BOOK_INFO WHERE BOOK_ID = #{bookId}
+	</select>
 </mapper>
 
 

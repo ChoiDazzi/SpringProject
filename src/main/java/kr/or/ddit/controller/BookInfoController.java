@@ -96,9 +96,9 @@ public class BookInfoController {
 	public ModelAndView detailBook(@RequestParam String bookId, ModelAndView mav){
 		log.info("bookId={}", bookId);
 
-		//BookInfoVO bookInfoVO = bookInfoService.detailBook(bookId);
+		BookInfoVO bookInfoVO = bookInfoService.detailBook(bookId);
 
-		//log.info("bookInfoVO={}", bookInfoVO);
+		log.info("bookInfoVO={}", bookInfoVO);
 
 		mav.setViewName("bookInfo/detailBook");
 		return mav;

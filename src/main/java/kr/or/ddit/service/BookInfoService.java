@@ -17,4 +17,6 @@ public interface BookInfoService {
     public List<BookInfoVO> listBook(Map<String, Object> map);
 
     public int getBookInfoTotal(Map<String,Object> map);
+
+    public BookInfoVO detailBook(String bookId);
 }

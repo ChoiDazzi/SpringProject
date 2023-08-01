@@ -34,4 +34,7 @@ public class BookInfoDao {
         return sqlSessionTemplate.selectOne("bookInfo.getBookInfoTotal",map);
     }
 
+    public BookInfoVO detailBook(String bookId) {
+        return sqlSessionTemplate.selectOne("bookInfo.detailBook", bookId);
+    }
 }
