@@ -196,7 +196,7 @@
                                 class="dropdown-item clsCategory" href="#">IT 모바일</a> <a
                                 class="dropdown-item clsCategory" href="#">소설</a>
                         </div>
-                        <input type="hidden" name="category" />
+                        <input type="hidden" name="category" value="${data.category}"/>
                     </div>
                 </div>
                 <div class="form-group">

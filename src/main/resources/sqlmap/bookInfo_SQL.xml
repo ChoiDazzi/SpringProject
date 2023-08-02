@@ -115,14 +115,19 @@
 	</update>
 
 	<update id="updateAttach" parameterType="attachVO">
-		UPDATE ATTACH A
-		SET A.FILENAME = #{filename}
-		WHERE A.SEQ = (
-			SELECT MIN(B.SEQ)
-			FROM ATTACH B
-			WHERE B.BOOK_ID = A.BOOK_ID
-		)
-		  AND A.BOOK_ID = #{bookId}
+		MERGE INTO ATTACH A
+			USING DUAL ON(A.BOOK_ID = #{bookId})
+			WHEN MATCHED THEN
+				UPDATE
+					SET    A.FILENAME = #{filename}
+			WHERE  A.SEQ = (
+                       SELECT MIN(B.SEQ)
+                       FROM ATTACH B
+                       WHERE B.BOOK_ID = A.BOOK_ID
+                     )
+      WHEN NOT MATCHED THEN
+          INSERT (SEQ, BOOK_ID, FILENAME)
+          VALUES((SELECT NVL(MAX(SEQ),0)+1 FROM ATTACH), #{bookId}, #{filename})
 	</update>
 	<delete id="deleteAttach" parameterType="String">
 		DELETE FROM ATTACH

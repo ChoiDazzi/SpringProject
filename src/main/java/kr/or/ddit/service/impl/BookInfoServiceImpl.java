@@ -100,7 +100,7 @@ public class BookInfoServiceImpl implements BookInfoService {
         //도서정보 수정
         int result = bookInfoDao.updateBookPost(bookInfoVO);
 
-        if (bookInfoVO.getBookImage()!=null) {
+        if (bookInfoVO.getBookImage().getSize() > 0) {
             log.info("파일객체가 있음");
             String uploadFolder = "/Users/ChoiSeoYeon/SpringExercises/springProj/src/main/webapp/resources/images";
             String str = getFolder();
