@@ -100,7 +100,6 @@ public class BookInfoServiceImpl implements BookInfoService {
         //도서정보 수정
         int result = bookInfoDao.updateBookPost(bookInfoVO);
 
-        AttachVO attachVO = new AttachVO();
 
         String uploadFolder = "/Users/ChoiSeoYeon/SpringExercises/springProj/src/main/webapp/resources/images";
         String str = getFolder();
@@ -121,6 +120,9 @@ public class BookInfoServiceImpl implements BookInfoService {
 
         //File 객체 복사 설계 (복사할 대상 경로, 파일명)
         File saveFile = new File(uploadPath, uploadFileName);
+
+        AttachVO attachVO = new AttachVO();
+
         //실행
         try {
             multipartFile.transferTo(saveFile);
