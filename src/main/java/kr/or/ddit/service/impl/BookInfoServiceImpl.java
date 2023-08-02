@@ -128,6 +128,7 @@ public class BookInfoServiceImpl implements BookInfoService {
                 multipartFile.transferTo(saveFile);
                 AttachVO attachVO = new AttachVO();
                 attachVO.setBookId(bookInfoVO.getBookId());
+
                 attachVO.setFilename("/" + str.replace("-", File.separator) + "/" + uploadFileName);
 
                 result += bookInfoDao.updateAttach(attachVO); //자식
@@ -142,6 +143,11 @@ public class BookInfoServiceImpl implements BookInfoService {
             log.info("파일객체가 없음");
             return result;
         }
+    }
+
+    @Override
+    public int deleteBookPost(String bookId) {
+        return bookInfoDao.deleteBookPost(bookId);
     }
 
     //연월일 폴더 생성

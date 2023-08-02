@@ -116,9 +116,21 @@
 
             //도서아이디는 계속 비활성화
             $("input[name='bookId']").attr("readonly", true);
-        })
+        });
 
+        $("#delete").on("click",function () {
 
+            $(".bookInfoFrm").attr("action","/bookInfo/deleteBookPost");
+
+            let result = confirm("삭제하시겠습니까?");
+            console.log("result: ", result);
+
+            if(result>0) {
+                $(".bookInfoFrm").submit();
+            } else {
+                alert("삭제가 취소되었습니다.")
+            }
+        });
 
     })
 </script>

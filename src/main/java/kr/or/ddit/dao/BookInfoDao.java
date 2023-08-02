@@ -44,4 +44,12 @@ public class BookInfoDao {
     public int updateAttach(AttachVO attachVO) {
         return sqlSessionTemplate.update("bookInfo.updateAttach", attachVO);
     }
+
+    public Map<String, Object> getFileName(String bookId) {
+        return sqlSessionTemplate.selectOne("bookInfo.detailBook", bookId);
+    }
+
+    public int deleteBookPost(String bookId) {
+        return sqlSessionTemplate.delete("bookInfo.deleteBookPost", bookId);
+    }
 }

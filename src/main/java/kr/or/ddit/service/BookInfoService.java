@@ -23,4 +23,6 @@ public interface BookInfoService {
 
     public int updateBookPost(BookInfoVO bookInfoVO);
 
+    public int deleteBookPost(String bookId);
+
 }

@@ -109,10 +109,19 @@ public class BookInfoController {
 		log.info("bookInfoVO={}", bookInfoVO);
 
 		int result = bookInfoService.updateBookPost(bookInfoVO);
+
 		log.info("updateResult={}", result);
 
 		mav.setViewName("redirect:/bookInfo/detailBook?bookId="+bookInfoVO.getBookId());
 
+		return mav;
+	}
+
+	@RequestMapping(value = "/bookInfo/deleteBookPost", method = RequestMethod.POST)
+	public ModelAndView deleteBookPost(ModelAndView mav, BookInfoVO bookInfoVO){
+		log.info("bookId={}", bookInfoVO.getBookId());
+
+		mav.setViewName("redirect:/bookInfo/listBook");
 		return mav;
 	}
 
