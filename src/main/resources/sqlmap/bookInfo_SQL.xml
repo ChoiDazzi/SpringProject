@@ -122,7 +122,7 @@
 			FROM ATTACH B
 			WHERE B.BOOK_ID = A.BOOK_ID
 		)
-		  AND A.BOOK_ID = #{bookId};
+		  AND A.BOOK_ID = #{bookId}
 	</update>
 </mapper>
 
