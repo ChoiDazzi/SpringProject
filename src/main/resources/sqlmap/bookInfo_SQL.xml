@@ -124,6 +124,10 @@
 		)
 		  AND A.BOOK_ID = #{bookId}
 	</update>
+	<delete id="deleteAttach" parameterType="String">
+		DELETE FROM ATTACH
+		WHERE BOOK_ID = #{bookId}
+	</delete>
 	<delete id="deleteBookPost" parameterType="String">
 		DELETE FROM BOOK_INFO
 		WHERE BOOK_ID = #{bookId}

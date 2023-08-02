@@ -121,6 +121,9 @@ public class BookInfoController {
 	public ModelAndView deleteBookPost(ModelAndView mav, BookInfoVO bookInfoVO){
 		log.info("bookId={}", bookInfoVO.getBookId());
 
+		int result = bookInfoService.deleteBookPost(bookInfoVO.getBookId());
+		log.info("result={}", result);
+
 		mav.setViewName("redirect:/bookInfo/listBook");
 		return mav;
 	}
