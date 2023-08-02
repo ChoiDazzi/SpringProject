@@ -1,5 +1,6 @@
 package kr.or.ddit.service;
 
+import kr.or.ddit.vo.AttachVO;
 import kr.or.ddit.vo.BookInfoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -21,4 +22,5 @@ public interface BookInfoService {
     public BookInfoVO detailBook(String bookId);
 
     public int updateBookPost(BookInfoVO bookInfoVO);
+
 }

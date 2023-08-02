@@ -113,6 +113,17 @@
 			CONDITION=#{condition}
 		WHERE BOOK_ID=#{bookId}
 	</update>
+
+	<update id="updateAttach" parameterType="attachVO">
+		UPDATE ATTACH A
+		SET A.FILENAME = #{filename}
+		WHERE A.SEQ = (
+			SELECT MIN(B.SEQ)
+			FROM ATTACH B
+			WHERE B.BOOK_ID = A.BOOK_ID
+		)
+		  AND A.BOOK_ID = #{bookId};
+	</update>
 </mapper>
 
 

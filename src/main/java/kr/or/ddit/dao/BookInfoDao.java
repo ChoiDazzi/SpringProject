@@ -40,4 +40,8 @@ public class BookInfoDao {
     public int updateBookPost(BookInfoVO bookInfoVO){
         return sqlSessionTemplate.update("bookInfo.updateBookPost", bookInfoVO);
     }
+
+    public int updateAttach(AttachVO attachVO) {
+        return sqlSessionTemplate.update("bookInfo.updateAttach", attachVO);
+    }
 }

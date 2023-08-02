@@ -100,42 +100,47 @@ public class BookInfoServiceImpl implements BookInfoService {
         //도서정보 수정
         int result = bookInfoDao.updateBookPost(bookInfoVO);
 
+        if (bookInfoVO.getBookImage()!=null) {
+            log.info("파일객체가 있음");
+            String uploadFolder = "/Users/ChoiSeoYeon/SpringExercises/springProj/src/main/webapp/resources/images";
+            String str = getFolder();
+            File uploadPath = new File(uploadFolder, str);
+            if (uploadPath.exists()==false) {
+                uploadPath.mkdirs(); //해당 폴더 없으면 생성
+            }
 
-        String uploadFolder = "/Users/ChoiSeoYeon/SpringExercises/springProj/src/main/webapp/resources/images";
-        String str = getFolder();
-        File uploadPath = new File(uploadFolder, str);
-        if (uploadPath.exists()==false) {
-            uploadPath.mkdirs(); //해당 폴더 없으면 생성
-        }
+            MultipartFile multipartFile = bookInfoVO.getBookImage();
+            log.info("filename={}", multipartFile.getOriginalFilename());
+            log.info("filesize={}", multipartFile.getSize());
+            log.info("MIME type={}", multipartFile.getContentType());
 
-        MultipartFile multipartFile = bookInfoVO.getBookImage();
-        log.info("filename={}", multipartFile.getOriginalFilename());
-        log.info("filesize={}", multipartFile.getSize());
-        log.info("MIME type={}", multipartFile.getContentType());
+            //원래 파일명
+            String uploadFileName = multipartFile.getOriginalFilename();
+            UUID uuid = UUID.randomUUID();  //랜덤값, 같은 날 같은 이미지 중복 방지
+            uploadFileName = uuid.toString() + "_" + uploadFileName;
 
-        //원래 파일명
-        String uploadFileName = multipartFile.getOriginalFilename();
-        UUID uuid = UUID.randomUUID();  //랜덤값, 같은 날 같은 이미지 중복 방지
-        uploadFileName = uuid.toString() + "_" + uploadFileName;
+            //File 객체 복사 설계 (복사할 대상 경로, 파일명)
+            File saveFile = new File(uploadPath, uploadFileName);
 
-        //File 객체 복사 설계 (복사할 대상 경로, 파일명)
-        File saveFile = new File(uploadPath, uploadFileName);
 
-        AttachVO attachVO = new AttachVO();
+            //실행
+            try {
+                multipartFile.transferTo(saveFile);
+                AttachVO attachVO = new AttachVO();
+                attachVO.setBookId(bookInfoVO.getBookId());
+                attachVO.setFilename("/" + str.replace("-", File.separator) + "/" + uploadFileName);
 
-        //실행
-        try {
-            multipartFile.transferTo(saveFile);
-            attachVO.setFilename("/" + str.replace("-", File.separator) + "/" + uploadFileName);
+                result += bookInfoDao.updateAttach(attachVO); //자식
+                log.info("final result={}", result);
 
-            result += bookInfoDao.addAttach(attachVO); //자식
-            log.info("final result={}", result);
-
+                return result;
+            } catch (IOException e) {
+                log.error(e.getMessage());
+                return 0;
+            }
+        } else {
+            log.info("파일객체가 없음");
             return result;
-
-        } catch (IOException e) {
-            log.error(e.getMessage());
-            return 0;
         }
     }
 
