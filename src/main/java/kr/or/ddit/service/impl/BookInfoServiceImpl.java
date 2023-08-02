@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.text.FieldPosition;
+import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -102,18 +103,13 @@ public class BookInfoServiceImpl implements BookInfoService {
         AttachVO attachVO = new AttachVO();
 
         String uploadFolder = "/Users/ChoiSeoYeon/SpringExercises/springProj/src/main/webapp/resources/images";
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = new Date();
-        String str = formatter.format(date);
-        File uploadPath = new File(uploadFolder,str.replace("-", File.separator));
-        log.info("uploadPath ={}", uploadPath);
-
+        String str = getFolder();
+        File uploadPath = new File(uploadFolder, str);
         if (uploadPath.exists()==false) {
             uploadPath.mkdirs(); //해당 폴더 없으면 생성
         }
 
         MultipartFile multipartFile = bookInfoVO.getBookImage();
-
         log.info("filename={}", multipartFile.getOriginalFilename());
         log.info("filesize={}", multipartFile.getSize());
         log.info("MIME type={}", multipartFile.getContentType());
@@ -141,5 +137,13 @@ public class BookInfoServiceImpl implements BookInfoService {
         }
     }
 
+    //연월일 폴더 생성
+    public String getFolder() {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        String str = formatter.format(date);
+
+        return str.replace("-", File.separator);
+    }
 
 }

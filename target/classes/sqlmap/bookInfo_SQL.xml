@@ -98,6 +98,21 @@
 		FROM BOOK_INFO B LEFT OUTER JOIN ATTACH A ON(B.BOOK_ID = A.BOOK_ID)
 		WHERE B.BOOK_ID = #{bookId}
 	</select>
+
+	<update id="updateBookPost" parameterType="bookInfoVO">
+		UPDATE BOOK_INFO
+		SET NAME=#{name},
+			UNIT_PRICE=#{unitPrice},
+			AUTHOR=#{author},
+			PUBLISHER=#{publisher},
+			RELEASE_DATE=#{releaseDate},
+			UNITS_IN_STOCK=#{unitsInStock},
+			CATEGORY=#{category},
+			DESCRIPTION=#{description},
+			TOTAL_PAGES=#{totalPages},
+			CONDITION=#{condition}
+		WHERE BOOK_ID=#{bookId}
+	</update>
 </mapper>
 
 

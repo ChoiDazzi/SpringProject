@@ -113,6 +113,12 @@
 			CONDITION=#{condition}
 		WHERE BOOK_ID=#{bookId}
 	</update>
+
+	<update id="updateAttach">
+		UPDATE ATTACH
+		SET FILENAME = #{filename}
+		WHERE BOOK_ID = #{bookId}
+	</update>
 </mapper>
 
 
