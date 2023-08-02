@@ -103,4 +103,17 @@ public class BookInfoController {
 		mav.setViewName("bookInfo/detailBook");
 		return mav;
 	}
+
+	@RequestMapping(value = "/bookInfo/updateBookPost", method = RequestMethod.POST)
+	public ModelAndView updateBookPost(ModelAndView mav, BookInfoVO bookInfoVO) {
+		log.info("bookInfoVO={}", bookInfoVO);
+
+		int result = bookInfoService.updateBookPost(bookInfoVO);
+		log.info("updateResult={}", result);
+
+		mav.setViewName("redirect:/bookInfo/detailBook?bookId="+bookInfoVO.getBookId());
+
+		return mav;
+	}
+
 }

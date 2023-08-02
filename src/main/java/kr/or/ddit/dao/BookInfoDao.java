@@ -37,4 +37,7 @@ public class BookInfoDao {
     public BookInfoVO detailBook(String bookId) {
         return sqlSessionTemplate.selectOne("bookInfo.detailBook", bookId);
     }
+    public int updateBookPost(BookInfoVO bookInfoVO){
+        return sqlSessionTemplate.update("bookInfo.updateBookPost", bookInfoVO);
+    }
 }

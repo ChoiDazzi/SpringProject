@@ -19,4 +19,6 @@ public interface BookInfoService {
     public int getBookInfoTotal(Map<String,Object> map);
 
     public BookInfoVO detailBook(String bookId);
+
+    public int updateBookPost(BookInfoVO bookInfoVO);
 }

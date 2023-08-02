@@ -94,4 +94,52 @@ public class BookInfoServiceImpl implements BookInfoService {
         return bookInfoDao.detailBook(bookId);
     }
 
+    @Override
+    public int updateBookPost(BookInfoVO bookInfoVO) {
+        //도서정보 수정
+        int result = bookInfoDao.updateBookPost(bookInfoVO);
+
+        AttachVO attachVO = new AttachVO();
+
+        String uploadFolder = "/Users/ChoiSeoYeon/SpringExercises/springProj/src/main/webapp/resources/images";
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        String str = formatter.format(date);
+        File uploadPath = new File(uploadFolder,str.replace("-", File.separator));
+        log.info("uploadPath ={}", uploadPath);
+
+        if (uploadPath.exists()==false) {
+            uploadPath.mkdirs(); //해당 폴더 없으면 생성
+        }
+
+        MultipartFile multipartFile = bookInfoVO.getBookImage();
+
+        log.info("filename={}", multipartFile.getOriginalFilename());
+        log.info("filesize={}", multipartFile.getSize());
+        log.info("MIME type={}", multipartFile.getContentType());
+
+        //원래 파일명
+        String uploadFileName = multipartFile.getOriginalFilename();
+        UUID uuid = UUID.randomUUID();  //랜덤값, 같은 날 같은 이미지 중복 방지
+        uploadFileName = uuid.toString() + "_" + uploadFileName;
+
+        //File 객체 복사 설계 (복사할 대상 경로, 파일명)
+        File saveFile = new File(uploadPath, uploadFileName);
+        //실행
+        try {
+            multipartFile.transferTo(saveFile);
+            attachVO.setFilename("/" + str.replace("-", File.separator) + "/" + uploadFileName);
+
+            result += bookInfoDao.addAttach(attachVO); //자식
+            log.info("final result={}", result);
+
+            return result;
+
+        } catch (IOException e) {
+            log.error(e.getMessage());
+            return 0;
+        }
+    }
+
+
 }
