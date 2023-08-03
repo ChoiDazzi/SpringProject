@@ -1,6 +1,8 @@
 package kr.or.ddit.controller;
 
+import kr.or.ddit.service.BookService;
 import kr.or.ddit.vo.BookInfoVO;
+import kr.or.ddit.vo.BookVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +13,11 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/board")
 public class BoardController {
+    private final BookService bookService;
+
+    public BoardController(BookService bookService) {
+        this.bookService = bookService;
+    }
 
     //void: return "board/register"; //forwarding
     @GetMapping("/register")
@@ -106,4 +113,14 @@ public class BoardController {
         return entity;
     }
 
+    @PostMapping("/book")
+    public ResponseEntity<String> insertBook(String title, @RequestBody BookVO bookVO) {
+        log.info("insertBook");
+        log.info("bookVO={}", bookVO);
+
+        bookService.insert(bookVO);
+
+        ResponseEntity<String> entity = new ResponseEntity<String>(title, HttpStatus.OK);
+        return entity;
+    }
 }
