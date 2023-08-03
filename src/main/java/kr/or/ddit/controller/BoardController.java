@@ -1,6 +1,8 @@
 package kr.or.ddit.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,15 +39,55 @@ public class BoardController {
         return "board/update";
     }
 
-    @GetMapping(value = "/get", params = "register")
-    public String register() {
+    //Params 매핑: 요청 파라미터를 매핑 조건으로 지정하는 경우 params 속성을 사용 (jsp의 name값 - button 또는 a 태그 - 이 넘어온다)
+    @PostMapping(value="/post", params="register")
+    public String register(String bookId) {
         log.info("register");
         return "board/register";
     }
 
-    @PostMapping(value = "/post", params = "register")
-    public String registerPost(){
-
+    @PostMapping(value="/post", params="update")
+    public String updatePost(String bookId){
+            log.info("update");
             return "board/register";
     }
+
+    @PostMapping(value="/post", params="delete")
+    public String deletePost(String bookId){
+            log.info("delete");
+            return "board/register";
+    }
+
+    @PostMapping(value="/post", params="list")
+    public String listPost(String bookId){
+            log.info("list");
+            return "board/register";
+    }
+
+    //board/get?remove
+    @GetMapping(value="/get", params="remove")
+    public String removeGet() {
+        log.info("removeGet");
+        return "board/register";
+    }
+
+    @PostMapping(value="/post", params="remove")
+    public String removePost() {
+        log.info("removePost");
+        return "board/register";
+    }
+
+    @GetMapping(value="/get", params="read")
+    public String readPost() {
+        log.info("read");
+        return "board/register";
+    }
+
+    @PostMapping(value="/{boardNo}")
+    public ResponseEntity<String> modifyPost(@PathVariable("boardNo") int boardNo) {
+        ResponseEntity<String> entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+
+        return entity;
+    }
+
 }
