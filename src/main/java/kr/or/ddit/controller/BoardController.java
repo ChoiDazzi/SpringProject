@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Slf4j
@@ -31,8 +32,20 @@ public class BoardController {
         return "board/read";
     }
 
-    @GetMapping("/update/{no}")
-    public String update(@PathVariable("no") int boardNo) {
+    @GetMapping("/update/{boardNo}")
+    public String update(@PathVariable int boardNo) {
         return "board/update";
+    }
+
+    @GetMapping(value = "/get", params = "register")
+    public String register() {
+        log.info("register");
+        return "board/register";
+    }
+
+    @PostMapping(value = "/post", params = "register")
+    public String registerPost(){
+
+            return "board/register";
     }
 }
