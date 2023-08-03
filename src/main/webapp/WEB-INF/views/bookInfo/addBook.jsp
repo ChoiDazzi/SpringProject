@@ -101,6 +101,7 @@
 				</div>
 				<button type="submit"class="btn btn-primary btn-user btn-block">
 					도서 등록</button>
+				<button type="button" id="btnHeaders" class="btn btn-primary btn-user btn-block">HEADERS MAPPING</button>
 			</form>
 		</div>
 	</div>
@@ -171,6 +172,31 @@
 				console.log("res: "+res);
 
 				$("#bookId").val(res);
+			}
+		})
+	})
+
+	$("#btnHeaders").on("click", function () {
+		let bookId = $("#bookId").val();
+		let name = $("#name").val();
+		let unitPrice = $("#unitPrice").val();
+		let author = $("#author").val();
+		let totalPages = $("#totalPages").val();
+		let data = {
+					"bookId": bookId,
+					"name": name,
+					"unitPrice": unitPrice,
+					"author": author,
+					"totalPages": totalPages
+					};
+		console.log(JSON.stringify(data));
+		$.ajax({
+			url: '/board/detail/ISBN1234',
+			contentType:'application/json;charset=utf-8',
+			type: "post",
+			data: JSON.stringify(data),
+			success: function (res) {
+				console.log("res", res);
 			}
 		})
 	})

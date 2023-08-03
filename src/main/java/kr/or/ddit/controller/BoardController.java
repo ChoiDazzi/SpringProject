@@ -1,13 +1,11 @@
 package kr.or.ddit.controller;
 
+import kr.or.ddit.vo.BookInfoVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @Controller
@@ -85,6 +83,24 @@ public class BoardController {
 
     @PostMapping(value="/{boardNo}")
     public ResponseEntity<String> modifyPost(@PathVariable("boardNo") int boardNo) {
+        ResponseEntity<String> entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+
+        return entity;
+    }
+
+    //HttpEntity 클래스를 상속받아 구현한 클래스가 RequestEntity, ResponseEntity 클래스이다.
+    //ResponseEntity는 사용자의 HttpRequest에 대한 응답 데이터를 포함하는 클래스이다.
+    //따라서 HttpStatus, HttpHeaders, HttpBody를 포함한다.
+
+    //consumes="application/json" - 생략가능 -
+
+    //JSON데이터를 받을 때 @RequestBody 사용
+    @PostMapping(value = "/detail/{id}")
+    public ResponseEntity<String> detailJSONPost(@PathVariable("id") String bookId,
+                                                 @RequestBody BookInfoVO bookInfoVO) {
+        log.info("detailJSONPost");
+        log.info("bookId={}", bookId);
+        log.info("bookInfoVO={}", bookInfoVO);
         ResponseEntity<String> entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 
         return entity;
