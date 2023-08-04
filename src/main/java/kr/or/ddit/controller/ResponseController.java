@@ -34,4 +34,18 @@ public class ResponseController {
 
         return "resp/strTwo";
     }
+
+    @GetMapping("/strRedirect")
+    public String strRedirect() {
+        log.info("strRedirect");
+
+        return "redirect:/resp/strTwo";
+    }
+
+    @GetMapping("/goHomeThree")
+    public String goHomeThree() {
+        log.info("goHomeThree");
+
+        return "/resp/goHomeThree"; //tiles 적용이 안됨 (절대경로라서)
+    }
 }
