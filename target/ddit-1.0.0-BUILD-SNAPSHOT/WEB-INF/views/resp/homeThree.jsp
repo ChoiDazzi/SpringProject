@@ -30,9 +30,23 @@
             url: '/resp/ex1',
             type: 'get',
             data: data,
+            dataType: "json",
             contentType:'application/json;charset=utf-8',
             success: function (res) {
                 console.log("res", res);
+            }
+        })
+
+        $.ajax({
+            url: '/resp/ex2',
+            type: 'post',
+            data: JSON.stringify(data),
+            dataType: "json",
+            contentType:'application/json;charset=utf-8',
+            success: function (res) {
+                console.log("Post: ", res);
+
+                $("textarea[name='content']").val(JSON.stringify(res.content));
             }
         })
     })

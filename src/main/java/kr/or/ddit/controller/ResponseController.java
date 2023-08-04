@@ -84,10 +84,19 @@ public class ResponseController {
     public BookVO ex1(@ModelAttribute BookVO bookVO) {
         log.info("bookVO={}", bookVO);
 
-        BookVO vo = bookService.detail(bookVO);
-        log.info("vo={}", vo);
+        bookVO = bookService.detail(bookVO);
+        log.info("bookVO={}", bookVO);
 
-        return vo;
+        return bookVO;
     }
 
+    @ResponseBody
+    @PostMapping("/ex2")
+    public BookVO ex2(@RequestBody BookVO bookVO) {
+        log.info("bookVO={}", bookVO);
+
+        bookVO = bookService.detail(bookVO);
+
+        return bookVO;
+    }
 }
