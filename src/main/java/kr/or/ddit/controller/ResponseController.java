@@ -81,7 +81,7 @@ public class ResponseController {
 
     @ResponseBody //VO => JSON
     @GetMapping(value = "/ex1")
-    public BookVO ex1(@ModelAttribute BookVO bookVO) {
+    public BookVO ex1(@RequestBody BookVO bookVO) {
         log.info("bookVO={}", bookVO);
 
         bookVO = bookService.detail(bookVO);
@@ -93,7 +93,17 @@ public class ResponseController {
     @ResponseBody
     @PostMapping("/ex2")
     public BookVO ex2(@RequestBody BookVO bookVO) {
-        log.info("bookVO={}", bookVO);
+        log.info("bookVO post={}", bookVO);
+
+        bookVO = bookService.detail(bookVO);
+
+        return bookVO;
+    }
+
+    @ResponseBody
+    @PostMapping("/ex3")
+    public BookVO ex3(@RequestBody BookVO bookVO) {
+        log.info("bookVO post={}", bookVO);
 
         bookVO = bookService.detail(bookVO);
 

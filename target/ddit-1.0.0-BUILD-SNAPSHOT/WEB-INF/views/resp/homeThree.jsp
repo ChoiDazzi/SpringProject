@@ -33,7 +33,7 @@
             dataType: "json",
             contentType:'application/json;charset=utf-8',
             success: function (res) {
-                console.log("res", res);
+                //console.log("res", res);
             }
         })
 
@@ -46,7 +46,7 @@
             success: function (res) {
                 console.log("Post: ", res);
 
-                $("textarea[name='content']").val(JSON.stringify(res.content));
+                $("textarea[name='content']").val(res.content);
             }
         })
     })

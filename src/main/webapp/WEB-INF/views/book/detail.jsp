@@ -38,13 +38,13 @@ WHERE
  <form id="frm" name="frm" action="/updatePost" method="post">
  	<!-- 폼데이터 -->
  	<!-- data : BookVO bookVO -->
- 	<input type="hidden" name="bookId" value="${data.bookId}" />
- 	<p>제목 : <input type="text" name="title" class="formdata" value="${data.title}" readonly /></p>
- 	<p>카테고리 : <input type="text" name="category" class="formdata" value="${data.category}" readonly /></p>
+ 	<input type="hidden" name="bookId" value="3" />
+ 	<p>제목 : <input type="text" name="title" class="formdata" value="" readonly /></p>
+ 	<p>카테고리 : <input type="text" name="category" class="formdata" value="" readonly /></p>
  	<p>가격 : <input type="text" name="price" class="formdata" maxLength="10" 
- 		value='<fmt:formatNumber type="number" value="${data.price}" pattern="#,###" />'
+ 		value='<fmt:formatNumber type="number" value="" pattern="#,###" />'
  		readonly /></p>
- 	<p>설명 : <textarea rows="5" cols="30" name="content" class="formdata" readonly>${data.content}</textarea> </p>
+ 	<p>설명 : <textarea rows="5" cols="30" name="content" class="formdata" readonly></textarea> </p>
  	
  	<!-- 일반모드 시작 -->
  	<p id="p1">
@@ -64,49 +64,68 @@ WHERE
  
  <script type="text/javascript">
  //document 내의 모든 요소들이 로딩이 완료된 후에 실행
- $(function(){
-	 console.log("수인잉");
-	 //수정 버튼 클릭 -> 수정모드로 전환
-	 $("#edit").on("click",function(){
-		 $("#p1").css("display","none");
-		 $("#p2").css("display","block");
-		 $(".formdata").removeAttr("readonly");
-		 
-		 //가격요소를 선택 후 쉼표 제거 후 type을 number로 바꾸자
-		 let objPrice = $("input[name='price']");
-		 let price = objPrice.val();
-		 price = price.replaceAll(",","");
-		 objPrice.val(price);
-		 objPrice.attr("type", "number");
-		 
-		 CKEDITOR.replace("content");
-	 
-	 	 $("form").attr("action","/updatePost");
-	 });
-	 //취소 버튼 클릭
-	 $("#cancel").on("click",function(){
-		//주소표시줄 : /detail?bookId=1
-		//param : bookId=1
-		//param.bookId : 1
-		location.href="/detail?bookId=${param.bookId}"; 
-	 });
-	 
-	 //삭제 버튼 클릭
-	 $("#delete").on("click", function(){
-		 $("form").attr("action","/deletePost");
-		 
-		 let result = confirm("삭제하시겠습니까?");
-		 
-		 console.log("result : " + result);
-		 
-		 if(result > 0 ){
-			$("form").submit();
-		 }else{
-			 alert("삭제가 취소되었습니다!");
-		 }
-	 });
+
+ console.log("수인잉");
+ //수정 버튼 클릭 -> 수정모드로 전환
+ $("#edit").on("click",function(){
+	 $("#p1").css("display","none");
+	 $("#p2").css("display","block");
+	 $(".formdata").removeAttr("readonly");
+
+	 //가격요소를 선택 후 쉼표 제거 후 type을 number로 바꾸자
+	 let objPrice = $("input[name='price']");
+	 let price = objPrice.val();
+	 price = price.replaceAll(",","");
+	 objPrice.val(price);
+	 objPrice.attr("type", "number");
+
+	 CKEDITOR.replace("content");
+
+	 $("form").attr("action","/updatePost");
  });
- 
+ //취소 버튼 클릭
+ $("#cancel").on("click",function(){
+	//주소표시줄 : /detail?bookId=1
+	//param : bookId=1
+	//param.bookId : 1
+	location.href="/detail?bookId=${param.bookId}";
+ });
+
+ //삭제 버튼 클릭
+ $("#delete").on("click", function(){
+	 $("form").attr("action","/deletePost");
+
+	 let result = confirm("삭제하시겠습니까?");
+
+	 console.log("result : " + result);
+
+	 if(result > 0 ){
+		$("form").submit();
+	 }else{
+		 alert("삭제가 취소되었습니다!");
+	 }
+ });
+
+ let bookId = $("input[name='bookId']").val();
+
+ let data = {"bookId": bookId};
+ console.log("data: ", data);
+
+ $.ajax({
+	 url: '/resp/ex3',
+	 data: JSON.stringify(data),
+	 contentType:'application/json;charset=utf-8',
+	 dataType:'json',
+	 type: 'post',
+	 success: function (res) {
+		 $("input[name='bookId']").val(res.bookId);
+		 $("input[name='title']").val(res.title);
+		 $("input[name='category']").val(res.category);
+		 $("input[name='price']").val(res.price);
+		 $("textarea[name='content']").val(res.content);
+	 }
+
+ })
  </script>
  
 </body>
