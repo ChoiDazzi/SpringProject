@@ -139,5 +139,6 @@ public class BoardController {
                 = new ResponseEntity<BookVO>(bookVO, HttpStatus.OK);
 
         return entity;
+
     }
 }
