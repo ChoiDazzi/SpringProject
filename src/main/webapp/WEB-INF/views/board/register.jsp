@@ -11,6 +11,7 @@
     <button type="submit" name="list">LIST</button>
     <br>
     <button type="submit" name="remove">REMOVE</button>
+    <button type="button" id="btnBookDetail">bookDetail</button>
     <button type="button" id="btnHeaders">Headers Mapping</button>
     <a href="/board/get?read" class="btn btn-primary">READ</a>
 </form>
@@ -44,4 +45,13 @@
             }
         })
     });
+
+    //도서 상세 정보
+    $("#btnBookDetail").on("click",function() {
+        let bookId = $("input[name='bookId']");
+        let boardNo = 3;
+        $.get("/board/" + boardNo, function(result) {
+            console.log("result: " + JSON.stringify(result));
+        })
+    })
 </script>

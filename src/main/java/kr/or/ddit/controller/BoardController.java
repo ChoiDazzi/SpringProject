@@ -114,14 +114,29 @@ public class BoardController {
     }
 
     @PostMapping("/book")
-    public ResponseEntity<String> insertBook(@RequestBody BookVO bookVO) {
+    public ResponseEntity<String> bookInsert(@RequestBody BookVO bookVO) {
         log.info("insertBook");
-        log.info("bookVO={}", bookVO);
-        log.info("title={}", bookVO.getTitle());
 
         bookService.insert(bookVO);
 
-        ResponseEntity<String> entity = new ResponseEntity<String>(bookVO.getTitle(), HttpStatus.OK);
+        String bookId = bookVO.getBookId() + "";
+        ResponseEntity<String> entity = new ResponseEntity<String>(bookId, HttpStatus.OK);
+
+        return entity;
+    }
+
+    @GetMapping(value = "/{bookId}")
+    public ResponseEntity<BookVO> modifyPost(@PathVariable("bookId") int bookId,
+                                             BookVO bookVO) {
+        log.info("modifyPost");
+
+        //bookVO{bookId=1,...}
+        bookVO.setBookId(bookId);
+
+        bookVO = this.bookService.detail(bookVO);
+
+        ResponseEntity<BookVO> entity
+                = new ResponseEntity<BookVO>(bookVO, HttpStatus.OK);
 
         return entity;
     }
