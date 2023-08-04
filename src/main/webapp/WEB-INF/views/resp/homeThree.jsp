@@ -27,9 +27,10 @@
 
         $.ajax({
             url: '/resp/ex1',
-            type: 'post',
+            type: 'get',
             data: 'json',
             success: function (res) {
+                console.log("res");
             }
         })
     })
