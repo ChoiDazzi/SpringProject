@@ -48,4 +48,11 @@ public class ResponseController {
 
         return "/resp/goHomeThree"; //tiles 적용이 안됨 (절대경로라서)
     }
+
+    @GetMapping("/homethree")
+    public String homethree() {
+        log.info("homethree");
+
+        return "/resp/homeThree";
+    }
 }
