@@ -1,14 +1,22 @@
 package kr.or.ddit.controller;
 
+import kr.or.ddit.service.BookService;
+import kr.or.ddit.vo.AttachVO;
+import kr.or.ddit.vo.BookVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @Controller
 @RequestMapping("/resp")
 public class ResponseController {
+    private final BookService bookService;
+
+    public ResponseController(BookService bookService) {
+        this.bookService = bookService;
+    }
+
     //void : 호출하는 URL과 동일한 뷰 이름을 나타내기 위해 사용
     @GetMapping("/goHome")
     public void home() {
@@ -53,6 +61,32 @@ public class ResponseController {
     public String homethree() {
         log.info("homethree");
 
-        return "/resp/homeThree";
+        return "resp/homeThree";
     }
+
+    //자바빈즈 클래스 타입 (VO => JSON)
+    //@ResponseBody를 지정하지 않으면 HTTP404 오류 발생
+    @ResponseBody //pom.xml => dependencies => Library (jackson-databind) - 없으면 HTTP406 오류 발생 -
+    @GetMapping("/javaBeans")
+    public AttachVO javaBeans() {
+        log.info("javaBeans");
+
+        AttachVO attachVO = new AttachVO();
+        attachVO.setSeq(1);
+        attachVO.setBookId("ISBN1234");
+        attachVO.setFilename("강아지.jpg");
+
+        return attachVO;
+    }
+
+    @ResponseBody //VO => JSON
+    @GetMapping(value = "/ex1")
+    public BookVO ex1(@ModelAttribute BookVO bookVO) {
+        log.info("bookVO", bookVO);
+
+        BookVO vo = bookService.detail(bookVO);
+
+        return vo;
+    }
+
 }

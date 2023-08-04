@@ -30,6 +30,7 @@
             type: 'post',
             data: 'json',
             success: function (res) {
+                console.log("result: " + JSON.stringify(res));
             }
         })
     })
