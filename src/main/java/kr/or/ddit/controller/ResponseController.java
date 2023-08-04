@@ -82,9 +82,10 @@ public class ResponseController {
     @ResponseBody //VO => JSON
     @GetMapping(value = "/ex1")
     public BookVO ex1(@ModelAttribute BookVO bookVO) {
-        log.info("bookVO", bookVO);
+        log.info("bookVO={}", bookVO);
 
         BookVO vo = bookService.detail(bookVO);
+        log.info("vo={}", vo);
 
         return vo;
     }

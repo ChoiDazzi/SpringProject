@@ -19,8 +19,9 @@
     })
 
     $("#btnBookDetail").on("click", function() {
+        let bookId =  $("input[name='bookId']").val();
         let data = {
-            "bookId": $("input[name='bookId']").val()
+            "bookId": bookId
         }
 
         console.log("data: ", JSON.stringify(data));
@@ -28,9 +29,10 @@
         $.ajax({
             url: '/resp/ex1',
             type: 'get',
-            data: 'json',
+            data: data,
+            contentType:'application/json;charset=utf-8',
             success: function (res) {
-                console.log("res");
+                console.log("res", res);
             }
         })
     })
