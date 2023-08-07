@@ -8,6 +8,11 @@
 <p>
     <button type="button" id="edit" style="display: none;">EDIT POST</button>
 </p>
+<p>
+    <select name="category" id="sel1">
+        <option value="">CATEGORY</option>
+    </select>
+</p>
 
 <script>
     $.ajax({
@@ -20,5 +25,18 @@
                 $("#edit").css("display", "block");
             }
         }
+    });
+
+    $.ajax({
+        url: "/resp/returnREL",
+        type: "get",
+        dataType: "json", //응답타입
+        success: function (res) {
+            console.log("result: ", JSON.stringify(res));
+            $.each(res, function(i,v) {
+
+            })
+        }
     })
+
 </script>

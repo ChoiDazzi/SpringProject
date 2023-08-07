@@ -196,4 +196,18 @@ public class ResponseController {
 
     //ResponseEntity<List> 타입
     //response할 때 Http 헤더 정보와 객체 배열 데이터를 전달하는 용도로 사용
+    @ResponseBody
+    @GetMapping("/returnREL")
+    public List<String> returnREL() {
+        log.info("return ResponseEntity<List>");
+
+        List<String> list = new ArrayList<String>();
+        list.add("fiction");
+        list.add("IT");
+        list.add("essay");
+
+        log.info("list={}", list);
+
+        return list;
+    }
 }
