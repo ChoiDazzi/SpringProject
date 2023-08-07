@@ -180,4 +180,20 @@ public class ResponseController {
 
         return new ResponseEntity<String>(result, HttpStatus.OK);
     }
+
+    //ResponseEntity<Java Beans> 타입
+    //response할 때 Http 헤더 정보와 객체 데이터를 전달하는 용도로 사용
+    @ResponseBody
+    @GetMapping("/returnJB")
+    public ResponseEntity<BookVO> returnJB(BookVO bookVO) {
+        log.info("return ResponseEntity<Java Beans>");
+
+        bookVO.setBookId(3);
+        bookVO = bookService.detail(bookVO);
+
+        return new ResponseEntity<BookVO>(bookVO, HttpStatus.OK);
+    }
+
+    //ResponseEntity<List> 타입
+    //response할 때 Http 헤더 정보와 객체 배열 데이터를 전달하는 용도로 사용
 }
