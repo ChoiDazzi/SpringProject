@@ -34,7 +34,7 @@
         success: function (res) {
             console.log("result: ", JSON.stringify(res));
             $.each(res, function(i,v) {
-
+                $("#sel1").append(`<option value='\${v}'>\${v}</value>`);
             })
         }
     })

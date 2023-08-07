@@ -4,11 +4,18 @@ import kr.or.ddit.service.BookService;
 import kr.or.ddit.vo.AttachVO;
 import kr.or.ddit.vo.BookVO;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -209,5 +216,83 @@ public class ResponseController {
         log.info("list={}", list);
 
         return list;
+    }
+
+    @ResponseBody
+    @GetMapping("/returnREM")
+    public ResponseEntity<Map<String, BookVO>> returnREM() {
+        log.info("return ResponseEntity<Map>");
+
+        Map<String, BookVO> map = new HashMap<String, BookVO>();
+
+        BookVO vo1 = new BookVO();
+        vo1.setBookId(3);
+        vo1 = bookService.detail(vo1);
+        map.put(String.valueOf(vo1.getBookId()), vo1);
+
+        BookVO vo2 = new BookVO();
+        vo2.setBookId(4);
+        vo2 = bookService.detail(vo2);
+        map.put(String.valueOf(vo2.getBookId()), vo2);
+
+        return new ResponseEntity<Map<String, BookVO>>(map, HttpStatus.OK);
+    }
+
+    //ResponseEntity<byte[]> 타입
+    //response할 때 Http 헤더 정보와 바이너리 파일 데이터를 전달하는 용도로 사용
+    @ResponseBody
+    @GetMapping("/returnREB")
+    public ResponseEntity<byte[]> returnREB() throws IOException{
+        log.info("home1101");
+
+        InputStream in = null;
+        ResponseEntity<byte[]> entity = null;
+
+        try {
+            HttpHeaders headers = new HttpHeaders();
+
+            in = new FileInputStream("/Users/ChoiSeoYeon/SpringExercises/springProj/src/main/webapp/resources/images/P1234.jpg");
+
+            headers.setContentType(MediaType.IMAGE_JPEG);
+
+            entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
+        } catch (Exception e) {
+            e.printStackTrace();
+            entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+        } finally {
+                in.close();
+        }
+        return entity;
+    }
+
+    //파일 다운로드에서 활용
+    @ResponseBody
+    @GetMapping("/returnFile")
+    public ResponseEntity<byte[]> returnFile() throws IOException{
+        //Stream: 파일을 읽거나 쓸 때, 네트워크 소켓을 거쳐 통신할 때 쓰이는 추상적인 개념, 데이터가 전송되는 통로
+        //InputStream: 추상클래스. 데이터가 들어오는 통로의 역할에 관해 규정
+        //1) 데이터를 읽어야 함 2) 남은 데이터 확인 3) 데이터 skip가능 4) close 가능 (통로 제거) 5) 특정 시점부터 다시 읽을 수 있음
+        log.info("file");
+
+        InputStream in = null;
+        ResponseEntity<byte[]> entity = null;
+
+        HttpHeaders headers = new HttpHeaders();
+
+        try {
+            in = new FileInputStream("/Users/ChoiSeoYeon/SpringExercises/springProj/src/main/webapp/resources/images/P1235.jpg");
+
+            headers.setContentType(MediaType.IMAGE_JPEG);
+
+            //IOUtils: byte로 관리
+            entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED); //HTTP 201
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+        } finally {
+            in.close();
+        }
+
+        return entity;
     }
 }
