@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -135,14 +136,43 @@ public class RequestController {
 
     @ResponseBody
     @PostMapping("/register0402")
-    public Date trhidyrt0402(String usrId, int coin,
-                             @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateOfBirth) {
-        log.info("userId={}", usrId);
-        log.info("coin={}", coin);
-        log.info("dateOfBirth={}", dateOfBirth);
+    public String register0402(String userId, int coin, String gender
+            , @DateTimeFormat(pattern="yyyy-MM-dd") Date dateOfBirth
+            , String nationality, String[] cars, ArrayList<String> homeList
+            , String[] hobbys, String developer
+            , boolean foreigner
+            , MemberVO memberVO) {
+        log.info("userId : {}", userId);
+        log.info("coin : {}", coin);
+        //dataOfBirth : Thu Jul 04 00:00:00 KST 1996
+        log.info("dateOfBirth : {}", dateOfBirth);
+        log.info("gender : {}", gender);
+        log.info("nationality : {}", nationality);
+        //보유자동차 String[] cars
+        for(String car : cars) {
+            log.info("car : {}", car);
+        }
+        //집 ArrayList<String> homeList : List매개변수는 안 됨
+        homeList = memberVO.getHomeList();
+        if(homeList!=null) {
+            for(int i=0; i<homeList.size(); i++) {
+                log.info("home : {}", homeList.get(i));
+            }
+        }
 
-    return dateOfBirth;
+        for(String hobby : hobbys) {
+            log.info("hobby : {}", hobby);
+        }
+        //개발자 여부
+        log.info("developer : {}", developer);
+        //외국인 여부
+        log.info("foreigner : {}", foreigner);
+
+        log.info("memberVO : {}", memberVO);
+
+        return "SUCCESS";
     }
+
 
 
 }
