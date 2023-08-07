@@ -174,7 +174,10 @@ public class ResponseController {
     @GetMapping("/returnRES")
     public ResponseEntity<String> returnRES() {
         log.info("return ResponseEntity<String>");
+        String result = "";
 
-        return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+        result = "SUCCESS";
+
+        return new ResponseEntity<String>(result, HttpStatus.OK);
     }
 }
