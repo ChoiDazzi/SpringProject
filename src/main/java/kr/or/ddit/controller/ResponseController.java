@@ -8,7 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Controller
@@ -103,18 +105,8 @@ public class ResponseController {
         return bookVO;
     }
 
-    @ResponseBody
-    @PostMapping("/ex3")
-    public BookVO ex3(@RequestBody BookVO bookVO) {
-        log.info("bookVO post={}", bookVO);
-
-        bookVO = bookService.detail(bookVO);
-
-        return bookVO;
-    }
-
+    //반환값이 컬렉션 타입이면 JSON 객체 배열 타입으로 자동 변환
     //Collection List 타입 (JSON 객체 배열 타입의 데이터를 만들어서 반환)
-    //반환값이 컬렉션 List 타입이면 JSON 객체 배열 타입으로 자동 변환
     @ResponseBody
     @GetMapping("/returnList")
     public List<BookVO> returnList(BookVO bookVO) {
@@ -131,5 +123,35 @@ public class ResponseController {
 
         log.info("bookList={}", bookList);
         return bookList;
+    }
+
+    @ResponseBody
+    @PostMapping("/ex3")
+    public BookVO ex3(@RequestBody BookVO bookVO) {
+        log.info("bookVO post={}", bookVO);
+
+        bookVO = bookService.detail(bookVO);
+
+        return bookVO;
+    }
+
+    //Collection Map 타입
+    @ResponseBody
+    @GetMapping("/returnMap")
+    public Map<String, BookVO> returnMap() {
+        log.info("returnMap");
+
+        Map<String, BookVO> map = new HashMap<String, BookVO>();
+        BookVO vo1 = new BookVO();
+        vo1.setBookId(3);
+        vo1 = bookService.detail(vo1);
+        map.put(String.valueOf(vo1.getBookId()), vo1);
+
+        BookVO vo2 = new BookVO();
+        vo2.setBookId(4);
+        vo2 = bookService.detail(vo2);
+        map.put(String.valueOf(vo2.getBookId()), vo2);
+
+        return map;
     }
 }
