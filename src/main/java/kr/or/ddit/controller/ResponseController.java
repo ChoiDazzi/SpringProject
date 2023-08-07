@@ -4,6 +4,8 @@ import kr.or.ddit.service.BookService;
 import kr.or.ddit.vo.AttachVO;
 import kr.or.ddit.vo.BookVO;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -153,5 +155,26 @@ public class ResponseController {
         map.put(String.valueOf(vo2.getBookId()), vo2);
 
         return map;
+    }
+
+    //ResponseEntity<Void> 타입
+    //Void : 반환할 데이터가 없음 (response 할 때 Http 헤더 정보와 내용을 가공함)
+    @ResponseBody
+    @GetMapping("/returnRE")
+    public ResponseEntity<Void> returnRE() {
+        log.info("return ResponseEntity");
+
+        //HttpStatus.OK: 200
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
+
+    //ResponseEntity<String> 타입
+    //response할 때 Http 헤더 정보와 문자열 데이터를 전달하는 용도로 사용
+    @ResponseBody
+    @GetMapping("/returnRES")
+    public ResponseEntity<String> returnRES() {
+        log.info("return ResponseEntity<String>");
+
+        return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
     }
 }
