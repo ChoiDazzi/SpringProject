@@ -28,7 +28,6 @@ public class RequestController {
         return map;
     }
 
-    //@PathVariable 생략 가능
     @ResponseBody
     @GetMapping("/register/{userId}")
     public String registerByPath(@PathVariable String userId) {
