@@ -2,10 +2,7 @@ package kr.or.ddit.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,5 +31,66 @@ public class RequestController {
         log.info("userId={}", userId);
 
         return userId;
+    }
+
+    @GetMapping("/register01")
+    public String register01() {
+        log.info("register01");
+
+        return "req/register01";
+    }
+
+    @ResponseBody
+    @PostMapping("/register01")
+    public String register01Post(String userId) {
+        log.info("register01Post");
+        log.info("userId={}", userId);
+        return userId;
+    }
+
+    @ResponseBody
+    @PostMapping("/register02")
+    public Map<String, Object> register02Post(String userId, int coin, String password) {
+        log.info("register02Post");
+        log.info("userId={}", userId);
+        log.info("coin={}", coin);
+        log.info("password={}", password);
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("userId", userId);
+        map.put("coin", coin);
+        map.put("password", password);
+
+        return map;
+    }
+
+    //요청 데이터 처리 Annotation
+    /*
+        PathVariable: URL에서 경로 변수 값을 가져옴
+        RequestParam: 요청 파라미터 값을 가져옴
+        RequestBody: 요청 본문 내용(JSON)을 가져옴
+        RequestHeader: 요청 헤더 값을 가져옴
+        CookieValue: 쿠키 값을 가져옴
+     */
+    @ResponseBody
+    @GetMapping("/register/{userId}/{coin}")
+    public String registerByPath(@PathVariable String userId, @PathVariable int coin) {
+        log.info("userId={}", userId);
+        log.info("coin={}", coin);
+
+        return "SUCCESS";
+    }
+
+    @GetMapping("/register02")
+    public String register02() {
+        return "req/register02";
+    }
+
+    @ResponseBody
+    @PostMapping("/register0201")
+    public String register0201(String userId) {
+        log.info("userId={}", userId);
+
+        return "SUCCESS";
     }
 }
