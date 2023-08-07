@@ -2,6 +2,7 @@ package kr.or.ddit.controller;
 
 import kr.or.ddit.vo.MemberVO;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -115,7 +116,7 @@ public class RequestController {
     //Date 타입 처리
     @ResponseBody
     @GetMapping("/registerByGet01")
-    public String registerByGet01(String userId, Date dateOfBirth) {
+    public String registerByGet01(String userId, Date dateOfBirth) { //2023/08/07 같은 형태
         log.info("userId={}", userId);
         log.info("dateOfBirth={}", dateOfBirth);
 
@@ -131,4 +132,17 @@ public class RequestController {
 
         return "SUCCESS";
     }
+
+    @ResponseBody
+    @PostMapping("/register0402")
+    public Date trhidyrt0402(String usrId, int coin,
+                             @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateOfBirth) {
+        log.info("userId={}", usrId);
+        log.info("coin={}", coin);
+        log.info("dateOfBirth={}", dateOfBirth);
+
+    return dateOfBirth;
+    }
+
+
 }

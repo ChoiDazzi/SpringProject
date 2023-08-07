@@ -7,7 +7,6 @@
   <p>userId: <input type="text" name="userId" value="dazzi" /></p>
   <p>userId: <input type="password" name="password" value="java" /></p>
   <p>coin: <input type="text" name="coin" value="100" /></p>
-  <p>dateOfBirth: <input type="date" name="dateOfBirth" value="2023-08-13" /></p>
   <p>
     <input type="submit" value="REGISTER02" />
   </p>
