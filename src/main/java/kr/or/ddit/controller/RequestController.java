@@ -1,9 +1,11 @@
 package kr.or.ddit.controller;
 
+import kr.or.ddit.vo.MemberVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -90,6 +92,42 @@ public class RequestController {
     @PostMapping("/register0201")
     public String register0201(String userId) {
         log.info("userId={}", userId);
+
+        return "SUCCESS";
+    }
+
+    @GetMapping("/register04")
+    public String register04() {
+        return "req/register04";
+    }
+
+    @ResponseBody
+    @PostMapping("/register04")
+    public MemberVO register0401(MemberVO memberVO, int coin) {
+        log.info("userId={}", memberVO.getUserId());
+        log.info("password={}", memberVO.getPassword());
+        log.info("coin={}", memberVO.getCoin());
+
+        log.info("coin={}", coin);
+        return memberVO;
+    }
+
+    //Date 타입 처리
+    @ResponseBody
+    @GetMapping("/registerByGet01")
+    public String registerByGet01(String userId, Date dateOfBirth) {
+        log.info("userId={}", userId);
+        log.info("dateOfBirth={}", dateOfBirth);
+
+        return "SUCCESS";
+    }
+
+    //Date 타입 처리
+    @ResponseBody
+    @GetMapping("/registerByGet02")
+    public String registerByGet02(MemberVO memberVO){
+        log.info("userId={}", memberVO.getUserId());
+        log.info("dateOfBirth={}",memberVO.getDateOfBirth() );
 
         return "SUCCESS";
     }
