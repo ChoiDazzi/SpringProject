@@ -7,6 +7,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Slf4j
 @Controller
 @RequestMapping("/resp")
@@ -108,5 +111,25 @@ public class ResponseController {
         bookVO = bookService.detail(bookVO);
 
         return bookVO;
+    }
+
+    //Collection List 타입 (JSON 객체 배열 타입의 데이터를 만들어서 반환)
+    //반환값이 컬렉션 List 타입이면 JSON 객체 배열 타입으로 자동 변환
+    @ResponseBody
+    @GetMapping("/returnList")
+    public List<BookVO> returnList(BookVO bookVO) {
+        log.info("returnList");
+        List<BookVO> bookList = new ArrayList<BookVO>();
+
+        bookVO.setBookId(3);
+        BookVO vo1 = bookService.detail(bookVO);
+        bookList.add(vo1);
+
+        bookVO.setBookId(4);
+        BookVO vo2 = bookService.detail(bookVO);
+        bookList.add(vo2);
+
+        log.info("bookList={}", bookList);
+        return bookList;
     }
 }
