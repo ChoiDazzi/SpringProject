@@ -32,4 +32,6 @@ public class MemberVO {
     private List<CardVO> cardVOList;
     private String introduction;
     private MultipartFile picture;
+    //다중 파일 업로드
+    private MultipartFile[] pictures;
 }

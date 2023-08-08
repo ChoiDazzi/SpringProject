@@ -5,9 +5,9 @@
     display: block;
   }
 </style>
-<form action="/req/registerFile02Post" method="post" enctype="multipart/form-data">
+<form action="/req/registerFile04Post" method="post" enctype="multipart/form-data">
   <input type="text" name="userId" value="dazzi" />
   <input type="text" name="password" value="java" />
-  <input type="file" name="picture" />
+  <input type="file" name="pictures" multiple />
   <input type="submit" value="FILE UPLOAD">
 </form>

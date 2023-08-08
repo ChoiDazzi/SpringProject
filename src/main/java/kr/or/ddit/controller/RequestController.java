@@ -215,16 +215,37 @@ public class RequestController {
     }
 
     @ResponseBody
-    @PostMapping("registerFile03Post")
+    @PostMapping("/registerFile03Post")
     public String registerFile03Post(MemberVO memberVO) {
         log.info("userId={}", memberVO.getUserId());
         log.info("password={}", memberVO.getPassword());
 
         MultipartFile picture = memberVO.getPicture();
-        log.info("원본 파일명={}", picture.getName());
+        log.info("원본 파일명={}", picture.getOriginalFilename());
         log.info("파일 크기={}", picture.getSize());
         log.info("파일 MIME 타입={}", picture.getContentType());
 
+        return "SUCCESS";
+    }
+
+    @GetMapping("/registerFile04")
+    public String registerFile04() {
+        return "req/registerFile04";
+    }
+
+    @ResponseBody
+    @PostMapping("/registerFile04Post")
+    public String registerFile04Post(MemberVO memberVO) {
+        log.info("userId={}", memberVO.getUserId());
+        log.info("password={}", memberVO.getPassword());
+
+        MultipartFile[] pictures = memberVO.getPictures();
+        for (MultipartFile picture : pictures) {
+            log.info("원본 파일명={}", picture.getOriginalFilename());
+            log.info("파일 크기={}", picture.getSize());
+            log.info("파일 MIME 타입={}", picture.getContentType());
+            log.info("************************************************");
+        }
         return "SUCCESS";
     }
 }
