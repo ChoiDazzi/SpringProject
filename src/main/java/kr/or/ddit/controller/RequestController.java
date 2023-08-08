@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -140,7 +141,7 @@ public class RequestController {
             , @DateTimeFormat(pattern="yyyy-MM-dd") Date dateOfBirth
             , String nationality, String[] cars, ArrayList<String> homeList
             , String[] hobbys, String developer
-            , boolean foreigner
+            , boolean foreigner, String introduction
             , MemberVO memberVO) {
         log.info("userId : {}", userId);
         log.info("coin : {}", coin);
@@ -173,6 +174,20 @@ public class RequestController {
         return "SUCCESS";
     }
 
+    //파일 업로드 폼 방식 요청 처리
+    //파일 업로드 폼 파일 요소값을 스프링 MVC가 지원하는 MultipartFile 매개변수로 처리함
+    @GetMapping("/registerFile01")
+    public String registerFile01() {
+        return "req/registerFile01";
+    }
 
+    @ResponseBody
+    @PostMapping("/registerFile01Post")
+    public String registerFile01Post(MultipartFile picture) {
+        log.info("원본 파일명={}", picture.getOriginalFilename());
+        log.info("파일 크기={}", picture.getSize());
+        log.info("파일 MIME 타입={}", picture.getContentType());
 
+        return "SUCCESS";
+    }
 }
