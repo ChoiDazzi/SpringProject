@@ -247,4 +247,19 @@ public class RequestController {
         log.info("result={}" , result);
         return "SUCCESS";
     }
+
+    @GetMapping("/registerFile05")
+    public String registerFile05() {
+        return "req/registerFile05";
+    }
+
+    @ResponseBody
+    @PostMapping("/registerFile05Post")
+    public String registerFile05Post(String userId, String password, MultipartFile file) {
+        log.info("userId={}", userId);
+        log.info("password={}", password);
+        log.info("file name={}", file.getOriginalFilename());
+
+        return "SUCCESS";
+    }
 }
