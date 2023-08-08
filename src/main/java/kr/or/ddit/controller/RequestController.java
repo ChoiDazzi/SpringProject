@@ -1,5 +1,6 @@
 package kr.or.ddit.controller;
 
+import kr.or.ddit.util.FileUploadUtils;
 import kr.or.ddit.vo.MemberVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -240,12 +241,10 @@ public class RequestController {
         log.info("password={}", memberVO.getPassword());
 
         MultipartFile[] pictures = memberVO.getPictures();
-        for (MultipartFile picture : pictures) {
-            log.info("원본 파일명={}", picture.getOriginalFilename());
-            log.info("파일 크기={}", picture.getSize());
-            log.info("파일 MIME 타입={}", picture.getContentType());
-            log.info("************************************************");
-        }
+
+        String result = FileUploadUtils.multiUpload(pictures);
+
+        log.info("result={}" , result);
         return "SUCCESS";
     }
 }
