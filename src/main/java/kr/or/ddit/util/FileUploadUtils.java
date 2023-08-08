@@ -16,12 +16,10 @@ import net.coobird.thumbnailator.Thumbnailator;
 
 @Slf4j
 public class FileUploadUtils {
-    //1) 업로드 폴더 정보
     public static String uploadFolder = "E:\\eGovFrame3.10.0\\workspace\\springProj\\src\\main\\webapp\\resources\\upload";
 
     //2) 연월일 폴더 생성
     public static String getFolder() {
-        //간단날짜형식
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
         Date date = new Date();
@@ -48,15 +46,12 @@ public class FileUploadUtils {
 
     //4) 다중업로드 처리
     public static String multiUpload(MultipartFile[] pictures) {
-        //upload까지의 경로, 년월일
         File uploadPath = new File(FileUploadUtils.uploadFolder, FileUploadUtils.getFolder());
         log.info("uploadPath : {}", uploadPath);
-        //만약 연/월/일 해당 폴더가 없으면 생성
         if(uploadPath.exists()==false) {
             uploadPath.mkdirs();
         }
 
-        //파일객체 배열로부터 파일을 하나씩 꺼내옴
         for(MultipartFile picture : pictures) {
             log.info("----------------------");
             log.info("파일명 : {}", picture.getOriginalFilename());
@@ -66,16 +61,10 @@ public class FileUploadUtils {
             String uploadFileName = picture.getOriginalFilename();
             uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\")+1);
 
-            //--------같은 날 같은 이미지를 업로드 시 파일 중복 방지
-            UUID uuid = UUID.randomUUID(); // 임의의 값을 생성
+            UUID uuid = UUID.randomUUID();
 
-            //원래 파일 이름과 구분하기 위해 _
             uploadFileName = uuid.toString() + "_" + uploadFileName;
-
-            //--------같은 날 같은 이미지를 업로드 시 파일 중복 방지 끝
-
             //File 객체 설계(복사할 대상 경로, 파일명)
-            //...upload\\2023\\08\\08\\
             File saveFile = new File(uploadPath, uploadFileName);
 
             try {
@@ -83,8 +72,6 @@ public class FileUploadUtils {
                 //파일 복사가 일어남
                 picture.transferTo(saveFile);
 
-                //--------썸네일 처리 시작--------
-                //이미지인지 체킹
                 if(checkImageType(saveFile)) {
                     //설계
                     FileOutputStream thumbnail = new FileOutputStream(
@@ -94,10 +81,6 @@ public class FileUploadUtils {
                     Thumbnailator.createThumbnail(picture.getInputStream(),thumbnail,100,100);
                     thumbnail.close();
                 }
-
-                //--------썸네일 처리 끝----------
-
-
             }catch (IllegalStateException e) {
                 log.error(e.getMessage());
                 return "0";
@@ -105,9 +88,7 @@ public class FileUploadUtils {
                 log.error(e.getMessage());
                 return "0";
             }
-
         }
-
         return "1";
     }
 }
