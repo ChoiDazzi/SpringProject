@@ -91,24 +91,22 @@ public class FileUploadUtils {
             File saveFile = new File(uploadPath, uploadFileName);
 
             try {
-                //원본파일객체.transferTo(설계)
-                //파일 복사가 일어남
+                // 원본 파일을 저장
                 picture.transferTo(saveFile);
 
                 if(checkImageType(saveFile)) {
-                    //설계
+                    // 이미지인 경우에만 썸네일 생성
                     FileOutputStream thumbnail = new FileOutputStream(
                             new File(uploadPath, "s_" + uploadFileName)
                     );
-                    //썸네일 생성(원본,설계,가로크기,세로크기)
                     Thumbnailator.createThumbnail(picture.getInputStream(),thumbnail,100,100);
                     thumbnail.close();
                 }
 
-            }catch (IllegalStateException e) {
+            } catch (IllegalStateException e) {
                 log.error(e.getMessage());
                 return "0";
-            }catch (IOException e) {
+            } catch (IOException e) {
                 log.error(e.getMessage());
                 return "0";
             }

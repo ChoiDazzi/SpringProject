@@ -262,4 +262,28 @@ public class RequestController {
 
         return "SUCCESS";
     }
+
+    @GetMapping("/registerFile06")
+    public String registerFile06() {
+        return "req/registerFile06";
+    }
+
+    @ResponseBody
+    @PostMapping("/registerFile06Post")
+    public String registerFile06Post(MemberVO memberVO) {
+        log.info("userId={}", memberVO.getUserId());
+        log.info("password={}", memberVO.getPassword());
+
+        MultipartFile[] pictures = memberVO.getPictures();
+        String result = FileUploadUtils.multiUpload(pictures);
+
+        for (MultipartFile picture : pictures) {
+            log.info(picture.getOriginalFilename());
+        }
+        if (result == "1") {
+            return "SUCCESS";
+        } else {
+            return "FAIL";
+        }
+    }
 }
