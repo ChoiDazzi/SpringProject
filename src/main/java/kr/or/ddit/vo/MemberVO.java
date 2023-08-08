@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 // 자바빈 클래스
 @Data
@@ -30,4 +31,5 @@ public class MemberVO {
     // 보유 카드들
     private List<CardVO> cardVOList;
     private String introduction;
+    private MultipartFile picture;
 }

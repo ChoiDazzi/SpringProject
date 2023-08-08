@@ -208,4 +208,23 @@ public class RequestController {
 
         return "SUCCESS";
     }
+
+    @GetMapping("/registerFile03")
+    public String registerFile03() {
+        return "req/registerFile03";
+    }
+
+    @ResponseBody
+    @PostMapping("registerFile03Post")
+    public String registerFile03Post(MemberVO memberVO) {
+        log.info("userId={}", memberVO.getUserId());
+        log.info("password={}", memberVO.getPassword());
+
+        MultipartFile picture = memberVO.getPicture();
+        log.info("원본 파일명={}", picture.getName());
+        log.info("파일 크기={}", picture.getSize());
+        log.info("파일 MIME 타입={}", picture.getContentType());
+
+        return "SUCCESS";
+    }
 }
