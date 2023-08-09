@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
 // 자바빈 클래스
@@ -23,6 +26,9 @@ public class MemberVO {
     private String userName;
     private String password;
     private int coin;
+    @Email
+    private String email;
+    @Past(message = "생일은 과거 날짜만 가능합니다.") //@Future : 미래만 가능
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date dateOfBirth;
     private String gender;
@@ -35,6 +41,7 @@ public class MemberVO {
     // 주소
     // 중첩된 자바빈
     // MemberVO : AddressVO = 1 : 1
+    @Valid
     private AddressVO addressVO;
     // 보유 카드들
     private List<CardVO> cardVOList;

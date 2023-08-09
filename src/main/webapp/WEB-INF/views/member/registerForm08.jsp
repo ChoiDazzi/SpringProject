@@ -11,16 +11,42 @@
 <%--     <form:hidden path="userId" /> --%>
     <form:input path="userId" />
     <!-- 만약 유효성 검증 실패 시 -->
-    <font color="red"><form:errors path="userId" /></font>
+    <font color="tomato"><form:errors path="userId" /></font>
     <p>
         <form:label path="userName">이름: </form:label>
         <form:input path="userName"/>
         <!-- 만약 유효성 검증 실패 시 -->
-        <font color="red"><form:errors path="userName" /></font>
+        <font color="tomato"><form:errors path="userName" /></font>
     </p>
     <p>
         <form:label path="password">비밀번호 : </form:label>
         <form:password path="password"/>
+    </p>
+    <p>
+        <form:label path="email">이메일 : </form:label>
+        <form:input path="email"/>
+        <font color="tomato"><form:errors path="userName" /></font>
+    </p>
+    <p>
+        <form:label path="dateOfBirth">생일</form:label>
+        <form:input path="dateOfBirth" placeholder="2020-01-01"/>
+        <font color="tomato"><form:errors path="dateOfBirth" /></font>
+    </p>
+    <p>
+        우편번호: <form:input path="addressVO.zonecode"/>
+        <font color="tomato">
+            <form:errors path="addressVO.zonecode" />
+        </font>
+        <br>
+        주소: <form:input path="addressVO.address"/>
+        <font color="tomato">
+            <form:errors path="addressVO.address" />
+        </font>
+        <br>
+        상세주소: <form:input path="addressVO.buildingName"/>
+        <font color="tomato">
+            <form:errors path="addressVO.buildingName" />
+        </font>
     </p>
     <p>
         <form:textarea path="introduction"/>
