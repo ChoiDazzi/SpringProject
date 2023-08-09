@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Data
 public class MemberVO {
     private String userId;
+    private String userName;
     private String password;
     private int coin;
     @DateTimeFormat(pattern="yyyy-MM-dd")

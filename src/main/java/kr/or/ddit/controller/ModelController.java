@@ -7,6 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.text.SimpleDateFormat;
@@ -127,5 +129,37 @@ public class ModelController {
         model.addAttribute("memberVO", memberVO);
 
         return "model/read05";
+    }
+
+    //@ModelAttribute: 전달받은 매개변수를 강제로 Model에 담아서 전달할 때 사용
+    @GetMapping("/registerForm")
+    public String registerForm() {
+
+        return "model/registerForm";
+    }
+
+    @PostMapping("/register01")
+    public String register01(String userId, String password) {
+        log.info("userId={}", userId);
+        log.info("password={}", password);
+
+        return "model/result";
+    }
+
+    @PostMapping("/register02")
+    public String register02(@ModelAttribute("userId") String userId, @ModelAttribute("password") String password) {
+        log.info("userId={}", userId);
+        log.info("password={}", password);
+
+        return "model/result";
+    }
+
+    //자바빈즈 규칙(멤버변수, Constructor, getter/setter) 에 맞는 객체는
+    //매개변수로 선언하면 기본적으로 forwarding시 데이터를 전달함
+    @PostMapping("/register04")
+    public String register04(MemberVO memberVO) {
+        log.info("memberVO={}", memberVO);
+
+        return "model/result";
     }
 }
