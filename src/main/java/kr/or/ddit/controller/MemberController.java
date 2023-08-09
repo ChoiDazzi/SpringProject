@@ -1,11 +1,13 @@
 package kr.or.ddit.controller;
 
+import kr.or.ddit.vo.AddressVO;
 import kr.or.ddit.vo.MemberVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Slf4j
@@ -48,5 +50,29 @@ public class MemberController {
         memberVO.setCoin(500);
 
         return "member/registerForm06";
+    }
+
+    @GetMapping("/registerForm07")
+    public String registerForm07(@ModelAttribute("addressVO") AddressVO addressVO) {
+        addressVO.setZonecode("12345");
+        addressVO.setAddress("대전 중구 문화동");
+        addressVO.setBuildingName("대덕인재개발원");
+
+        return "member/registerForm07";
+    }
+
+    @GetMapping("/registerForm08")
+    public String registerForm08(@ModelAttribute("memberVO") MemberVO memberVO) {
+        memberVO.setUserId("dazzi");
+        memberVO.setUserName("seoyeon");
+        memberVO.setPassword("java"); //view에 반영 안 됨
+        memberVO.setIntroduction("hello\nmy name is seoyeon");
+        return "member/registerForm08";
+    }
+
+    @PostMapping("/registerForm08Post")
+    public String registerForm08Post(MemberVO memberVO) {
+        log.info("memberVO={}", memberVO);
+        return "member/result";
     }
 }
