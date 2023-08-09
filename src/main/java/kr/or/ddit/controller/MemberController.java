@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Slf4j
 @RequestMapping("/member")
 @Controller
@@ -62,11 +65,27 @@ public class MemberController {
     }
 
     @GetMapping("/registerForm08")
-    public String registerForm08(@ModelAttribute("memberVO") MemberVO memberVO) {
+    public String registerForm08(@ModelAttribute("memberVO") MemberVO memberVO, Model model) {
         memberVO.setUserId("dazzi");
         memberVO.setUserName("seoyeon");
         memberVO.setPassword("java"); //view에 반영 안 됨
         memberVO.setIntroduction("hello\nmy name is seoyeon");
+        String[] hobbys = {"reading", "camping"};
+        memberVO.setHobbys(hobbys);
+
+        Map<String,String> hobbymap = new HashMap<>();
+        hobbymap.put("reading", "reading");
+        hobbymap.put("swimming", "swimming");
+        hobbymap.put("camping", "camping");
+
+        model.addAttribute("hobbyMap", hobbymap);
+
+        memberVO.setGender("Female");
+        Map<String, String> genderMap = new HashMap<>();
+        genderMap.put("Male", "Male");
+        genderMap.put("Female", "Female");
+        genderMap.put("Other", "Other");
+        model.addAttribute("genderMap", genderMap);
         return "member/registerForm08";
     }
 
