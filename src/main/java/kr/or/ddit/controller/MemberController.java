@@ -5,12 +5,17 @@ import kr.or.ddit.vo.MemberVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -73,7 +78,7 @@ public class MemberController {
         String[] hobbys = {"reading", "camping"};
         memberVO.setHobbys(hobbys);
 
-        Map<String,String> hobbymap = new HashMap<>();
+        Map<String, String> hobbymap = new HashMap<>();
         hobbymap.put("reading", "reading");
         hobbymap.put("swimming", "swimming");
         hobbymap.put("camping", "camping");
@@ -104,9 +109,53 @@ public class MemberController {
         return "member/registerForm08";
     }
 
+    //입력값 검증을 할 도메인 클래스에 @Validated를 지정함
     @PostMapping("/registerForm08Post")
-    public String registerForm08Post(MemberVO memberVO) {
+    public String registerForm08Post(@Validated @ModelAttribute("memberVO") MemberVO memberVO,
+                                     BindingResult result, Model model) {
         log.info("memberVO={}", memberVO);
-        return "member/result";
+        if (result.hasErrors()) {//유효성 검증 실패
+            List<ObjectError> allErrors = result.getAllErrors(); //모든
+            List<ObjectError> globalErrors = result.getGlobalErrors(); //객체
+            List<FieldError> fieldErrors = result.getFieldErrors(); //멤버변수
+
+            log.info("allError.size() : {}", allErrors.size());
+            log.info("globalErrors.size() : {}", globalErrors.size());
+            log.info("fieldErrors.size() : {}", fieldErrors.size());
+
+
+            for (int i = 0; i < allErrors.size(); i++) {
+                ObjectError objectError = allErrors.get(i);
+                log.info("allError : {}", objectError);
+            }
+
+            for (int i = 0; i < globalErrors.size(); i++) {
+                ObjectError objectError = globalErrors.get(i);
+                log.info("globalErrors : {}", objectError);
+            }
+
+            for (int i = 0; i < fieldErrors.size(); i++) {
+                FieldError fieldError = fieldErrors.get(i);
+                log.info("fieldErrors : {}", fieldError);
+                log.info("fieldError.getDefaultMessage : {}", fieldError.getDefaultMessage());
+            }
+
+            Map<String, String> nationalityMap = new HashMap<>();
+            nationalityMap.put("Korea", "한국");
+            nationalityMap.put("Germany", "독일");
+            nationalityMap.put("Australia", "호주");
+            model.addAttribute("nationalityMap", nationalityMap);
+
+            String[] cars = {"audi", "qm5"};
+            memberVO.setCars(cars);
+            Map<String, String> carsMap = new HashMap<>();
+            carsMap.put("audi", "audi");
+            carsMap.put("grandure", "grandure");
+            carsMap.put("qm5", "qm5");
+            model.addAttribute("carsMap", carsMap);
+
+    return "member/registerForm08";
+            }
+            return "member/result"; //유효성 검사 통과
+        }
     }
-}
