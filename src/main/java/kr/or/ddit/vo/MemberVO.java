@@ -44,6 +44,7 @@ public class MemberVO {
     @Valid
     private AddressVO addressVO;
     // 보유 카드들
+    @Valid
     private List<CardVO> cardVOList;
     private String introduction;
     private MultipartFile picture;

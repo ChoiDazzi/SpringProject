@@ -49,6 +49,31 @@
         </font>
     </p>
     <p>
+        card1-no:
+            <form:input path="cardVOList[0].no"/>
+            <font color="tomato">
+                <form:errors path="cardVOList[0].no" />
+            </font>
+        <br>
+        card1-validation:
+            <form:input path="cardVOList[0].validMonth"/>
+            <font color="tomato">
+                <form:errors path="cardVOList[0].validMonth" />
+            </font>
+        <br>
+        <hr>
+    card1-no: <form:input path="cardVOList[1].no"/>
+    <font color="tomato">
+        <form:errors path="cardVOList[1].no" />
+    </font>
+    <br>
+    card1-validation: <form:input path="cardVOList[1].validMonth"/>
+    <font color="tomato">
+        <form:errors path="cardVOList[1].validMonth" />
+    </font>
+    <br>
+    </p>
+    <p>
         <form:textarea path="introduction"/>
     </p>
     <p>
