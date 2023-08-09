@@ -86,6 +86,21 @@ public class MemberController {
         genderMap.put("Female", "Female");
         genderMap.put("Other", "Other");
         model.addAttribute("genderMap", genderMap);
+
+        Map<String, String> nationalityMap = new HashMap<String, String>();
+        nationalityMap.put("Korea", "한국");
+        nationalityMap.put("Germany", "독일");
+        nationalityMap.put("Australia", "호주");
+        model.addAttribute("nationalityMap", nationalityMap);
+
+        String[] cars = {"audi", "qm5"};
+        memberVO.setCars(cars);
+        Map<String, String> carsMap = new HashMap<>();
+        carsMap.put("audi", "audi");
+        carsMap.put("grandure", "grandure");
+        carsMap.put("qm5", "qm5");
+        model.addAttribute("carsMap", carsMap);
+
         return "member/registerForm08";
     }
 

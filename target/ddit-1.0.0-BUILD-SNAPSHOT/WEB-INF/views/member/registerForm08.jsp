@@ -21,8 +21,13 @@
 <%--    <form:checkbox path="hobbys" value="reading" label="reading" />--%>
 <%--    <form:checkbox path="hobbys" value="swimming" label="swimming" />--%>
 <%--    <form:checkbox path="hobbys" value="camping" label="camping" />--%>
-    <form:button name="register">등록</form:button>
     <form:radiobuttons path="gender" items="${genderMap}" />
+    국적 :
+    <form:select path="nationality" items="${nationalityMap}" />
+    <br />
+    자동차 :
+    <form:select path="cars" items="${carsMap}" multiple="true" />
+    <form:button name="register">등록</form:button>
 
 </form:form>
 

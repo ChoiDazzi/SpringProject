@@ -8,6 +8,11 @@
 <c:forEach items="${memberVO.hobbys}" var="hobby">
     ${hobby}<br/>
 </c:forEach>
-보유자동차 :
-<!-- 여러 개의 라디오 버튼 요소 radiobuttons -->
+
+<p> 성별 : ${memberVO.gender} </p>
+<p> 국적 : ${memberVO.nationality} </p>
+
+<c:forEach items="${memberVO.cars}" var="car">
+    ${car}<br/>
+</c:forEach>
 
