@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE tiles-definitions PUBLIC 
-"-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" 
-"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <!-- tiles 설정 -->
 <tiles-definitions>
    <!-- main layout -->
@@ -13,7 +13,7 @@
    </definition>
    <!-- name의 */*은 body의 value에서 1과 2에 해당
       controller에서 forwarding 시 return "1/2";
-      
+
       return "shopping/products"
     -->
    <definition name="*/*" extends="tiles-layout">

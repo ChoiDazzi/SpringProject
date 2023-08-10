@@ -1,114 +1,110 @@
-<%@ page language="java" contentType="text/html;charset=UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <!DOCTYPE html>
-<html class>
+<html lang="en">
 <head>
-<script type="text/javascript" src="/resources/js/jquery-3.6.0.js"></script>
-    <title>SB Admin 2 - Dashboard</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AdminLTE 3 | Dashboard</title>
 
-    <!-- Custom fonts for this template-->
-    <link href="/resources/sbadmin2/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-
-    <!-- Custom styles for this template-->
-    <link href="/resources/sbadmin2/css/sb-admin-2.min.css" rel="stylesheet">
-
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/resources/adminlte/plugins/fontawesome-free/css/all.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link rel="stylesheet" href="/resources/adminlte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="/resources/adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- JQVMap -->
+    <link rel="stylesheet" href="/resources/adminlte/plugins/jqvmap/jqvmap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/resources/adminlte/dist/css/adminlte.min.css">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="/resources/adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="/resources/adminlte/plugins/daterangepicker/daterangepicker.css">
+    <!-- summernote -->
+    <link rel="stylesheet" href="/resources/adminlte/plugins/summernote/summernote-bs4.min.css">
 </head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
 
-<body id="page-top" class="sidebar-mini sidebar-closed sidebar-collapse">
-
-    <!-- Page Wrapper -->
-    <div id="wrapper">
-
-        <!-- Sidebar //////////aside 시작 ////////// 
-        /WEB-INF/views/tiles/aside.jsp를 include
-        -->
-        <tiles:insertAttribute name="aside" />
-        <!-- End of Sidebar //////////aside 끝 //////////-->
-
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
-
-            <!-- Main Content -->
-            <div id="content">
-
-                <!-- Topbar ////////// header 시작////////////////
-                /WEB-INF/views/tiles/header.jsp를 include
-                -->
-                <tiles:insertAttribute name="header" />
-                <!-- End of Topbar ////////// header 끝////////////////-->
-
-                <!-- Begin Page Content //////// body 시작 //////////-->
-                <div class="container-fluid">
-					<tiles:insertAttribute name="body" />
-                </div>
-                <!-- /.container-fluid //////// body 끝 //////////-->
-
-            </div>
-            <!-- End of Main Content -->
-
-            <!-- Footer ///////footer 시작////////////
-            /WEB-INF/views/tiles/footer.jsp를 include
-            -->
-            <tiles:insertAttribute name="footer" />
-            <!-- End of Footer ///////footer 끝////////////-->
-
-        </div>
-        <!-- End of Content Wrapper -->
-
-    </div>
-    <!-- End of Page Wrapper -->
-
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
-
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">로그아웃 하시겠습니까?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">세션을 종료하려면 아래의 로그아웃 버튼을 클릭해주세요.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
-                	<form action="/logout" method="post">
-	                    <button type="submit" class="btn btn-primary">로그아웃</button>
-	                    <sec:csrfInput/>
-					</form>                    
-                </div>
-            </div>
-        </div>
+    <!-- Preloader -->
+    <div class="preloader flex-column justify-content-center align-items-center">
+        <img class="animation__shake" src="/resources/adminlte/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
     </div>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="/resources/sbadmin2/vendor/jquery/jquery.min.js"></script>
-    <script src="/resources/sbadmin2/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!--//////////// Navbar header 시작///////////// -->
+    <tiles:insertAttribute name="header" />
+    <!-- navbar///////////// header 끝 -->
 
-    <!-- Core plugin JavaScript-->
-    <script src="/resources/sbadmin2/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-    <!-- Custom scripts for all pages-->
-    <script src="/resources/sbadmin2/js/sb-admin-2.min.js"></script>
+    <!-- Main Sidebar Container -->
+ 	<!-- ///////////////// aside 시작 ///////////////// -->
+ 	<tiles:insertAttribute name="aside" />
+ 	<!-- ///////////////// aside 끝 ///////////////// -->
 
-    <!-- Page level plugins -->
-    <script src="/resources/sbadmin2/vendor/chart.js/Chart.min.js"></script>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+		
+		<section class="content">
+			<div class="container-fluid">
+		<!-- ///////////////// body 시작 ////////////////// -->
+		<tiles:insertAttribute name="body" />
+		<!-- ///////////////// body 끝 ////////////////// -->
+			</div>
+		</section>
+    </div>
+    <!-- /.content-wrapper -->
+	
+	<!-- /////////////////// footer시작 //////////////// -->
+	<tiles:insertAttribute name="footer" />
+	<!-- /////////////////// footer 끝 //////////////// -->
 
-    <!-- Page level custom scripts -->
-    <script src="/resources/sbadmin2/js/demo/chart-area-demo.js"></script>
-    <script src="/resources/sbadmin2/js/demo/chart-pie-demo.js"></script>
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
 
+<!-- jQuery -->
+<script src="/resources/adminlte/plugins/jquery/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="/resources/adminlte/plugins/jquery-ui/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+    $.widget.bridge('uibutton', $.ui.button)
+</script>
+<!-- Bootstrap 4 -->
+<script src="/resources/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- ChartJS -->
+<script src="/resources/adminlte/plugins/chart.js/Chart.min.js"></script>
+<!-- Sparkline -->
+<script src="/resources/adminlte/plugins/sparklines/sparkline.js"></script>
+<!-- JQVMap -->
+<script src="/resources/adminlte/plugins/jqvmap/jquery.vmap.min.js"></script>
+<script src="/resources/adminlte/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+<!-- jQuery Knob Chart -->
+<script src="/resources/adminlte/plugins/jquery-knob/jquery.knob.min.js"></script>
+<!-- daterangepicker -->
+<script src="/resources/adminlte/plugins/moment/moment.min.js"></script>
+<script src="/resources/adminlte/plugins/daterangepicker/daterangepicker.js"></script>
+<!— Tempusdominus Bootstrap 4 —>
+<script src="/resources/adminlte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<!— Summernote —>
+<script src="/resources/adminlte/plugins/summernote/summernote-bs4.min.js"></script>
+<!— overlayScrollbars —>
+<script src="/resources/adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!— AdminLTE App —>
+<script src="/resources/adminlte/dist/js/adminlte.js"></script>
+<!— AdminLTE for demo purposes —>
+<script src="/resources/adminlte/dist/js/demo.js"></script>
+<!— AdminLTE dashboard demo (This is only for demo purposes) —>
+<script src="/resources/adminlte/dist/js/pages/dashboard.js"></script>
 </body>
-
 </html>
