@@ -10,5 +10,4 @@ public class PurInfoVO {
 	private String bookId;
 	private int purCnt;
 	private Date purDt;
-
 }

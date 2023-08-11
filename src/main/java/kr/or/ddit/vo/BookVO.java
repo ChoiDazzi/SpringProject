@@ -3,22 +3,20 @@ package kr.or.ddit.vo;
 import java.util.Date;
 
 //자바빈 클래스
-//1) 멤버변수 2) 기본 생성자 3) getter/setter
+//1) 멤버변수 2) 기본생성자 3) getter/setter메소드
 public class BookVO {
-	//멤버 변수
-	private int bookId; 
-	private String title; 
-	private String category; 
-	private int price; 
-	private String content; 
+	//멤버변수
+	private int bookId;
+	private String title;
+	private String category;
+	private int price;
+	private String content;
 	private Date insertDate;
 
-	
-	//기본 생성자
+	//기본생성자
 	public BookVO() {}
 
-	
-	//getter/setter
+	//getter/setter메소드
 	public int getBookId() {
 		return bookId;
 	}
@@ -67,7 +65,6 @@ public class BookVO {
 		this.insertDate = insertDate;
 	}
 
-
 	@Override
 	public String toString() {
 		return "BookVO [bookId=" + bookId + ", title=" + title + ", category=" + category + ", price=" + price
@@ -76,3 +73,7 @@ public class BookVO {
 	
 	
 }
+
+
+
+
