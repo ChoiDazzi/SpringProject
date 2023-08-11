@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
-"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<!-- 
-	[마이바티스] 스프링에서 "_"를 사용한 컬럼명을 사용 시(BOOK 테이블의 BOOK_ID 컬럼)
+	[마이바티스] 스프링에서 "_"를 사용한 컬럼명을 사용 시(BOOK 테이블의 BOOK_ID컬럼)
 	카멜케이스로 읽어줌(bookId)
 	ex) 테이블 컬럼명이 MEMBER_ID인 경우 jsp View화면에서도 이 값을 사용 시 memberId로 사용
 	 -->
@@ -16,5 +16,9 @@
 		<typeAlias type="kr.or.ddit.vo.ProductVO" alias="productVO" />
 		<typeAlias type="kr.or.ddit.vo.BookInfoVO" alias="bookInfoVO" />
 		<typeAlias type="kr.or.ddit.vo.AttachVO" alias="attachVO" />
+		<typeAlias type="kr.or.ddit.vo.ItemVO" alias="itemVO" />
+		<typeAlias type="kr.or.ddit.vo.Item2VO" alias="item2VO" />
+		<typeAlias type="kr.or.ddit.vo.Item3VO" alias="item3VO" />
+		<typeAlias type="kr.or.ddit.vo.ItemAttachVO" alias="itemAttachVO" />
 	</typeAliases>
 </configuration>
