@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.or.ddit.mapper.ItemMapper;
@@ -48,6 +49,7 @@ public class ItemServiceImpl implements ItemService {
 	//아이템 등록 + 다중파일 등록
 	//요청파라미터 : {itemName=태블릿&price=12000&description=설명글
 	//				&pictures=파일객체들}
+	@Transactional
 	@Override
 	public int registMultiPost(Item3VO item3VO) {
 		//1) item3VO->ITEM3 테이블에 insert

@@ -2,8 +2,8 @@ package kr.or.ddit.aop;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.*;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.stereotype.Component;
 
@@ -44,11 +44,43 @@ public class ServiceLoggerAdvice {
      */
 
     @Before("execution(* kr.or.ddit.*..*(..))")
-    public void startLog(JoinPoint jp) {
-        log.info("startLog");
+    public void startLog(JoinPoint joinPoint) {
         //.getSignature() : 어떤 클래스의 어떤 메서드가 실행되었는지, 파라미터 타입은 무엇인지 보여줌
-        log.info("startLog={}", jp.getSignature());
+        log.info("startLog={}", joinPoint.getSignature());
         //.getArgs() :
-        log.info("startLog={}", Arrays.toString(jp.getArgs()));
+        log.info("startLog={}", Arrays.toString(joinPoint.getArgs()));
     }
+
+    @AfterReturning("execution(* kr.or.ddit.*..*(..))")
+    public void logReturning(JoinPoint joinPoint) {
+        log.info("logReturning={}", joinPoint.getSignature());
+    }
+
+    @AfterThrowing(pointcut = "execution(* kr.or.ddit.*..*(..))", throwing = "e")
+    public void logException(JoinPoint joinPoint, Exception e) {
+        log.info("logException={}", joinPoint.getSignature());
+        log.info("logException={}", e); //예외 메시지를 보여줌
+    }
+
+    @After("execution(* kr.or.ddit.*..*(..))")
+    public void endLog(JoinPoint joinPoint) {
+        log.info("endLog={}", joinPoint.getSignature());
+        log.info("endLog={}", Arrays.toString(joinPoint.getArgs()));
+    }
+
+    @Around("execution(* kr.or.ddit.*..*(..))")
+    public Object timeLog(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+        long startTime = System.currentTimeMillis();
+        log.info("start={}", Arrays.toString(proceedingJoinPoint.getArgs()));
+
+        Object result = proceedingJoinPoint.proceed();
+
+        long endTime = System.currentTimeMillis();
+        log.info("end={}", Arrays.toString(proceedingJoinPoint.getArgs()));
+
+        log.info(proceedingJoinPoint.getSignature().getName() + ":" + (endTime - startTime));
+
+        return result;
+    }
+
 }

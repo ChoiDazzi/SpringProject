@@ -271,6 +271,13 @@
 			<scope>runtime</scope>
 		</dependency>
 
+		<!-- AspectJ Tools -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjtools</artifactId>
+			<version>${org.aspectj-version}</version>
+		</dependency>
+
 	</dependencies>
 	
 				
