@@ -23,7 +23,13 @@ web.xml : tomcat 서버의 설정
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/spring/root-context.xml</param-value>
 	</context-param>
-	
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/spring/root-context.xml
+			/WEB-INF/spring/security-context.xml
+		</param-value>
+	</context-param>
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -37,6 +43,10 @@ web.xml : tomcat 서버의 설정
 			<param-name>contextConfigLocation</param-name>
 			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
 		</init-param>
+		<init-param>
+			<param-name>throwEXceptionIfNoHandlerFound</param-name>
+			<param-value>true</param-value>
+		</init-param>
 		<load-on-startup>1</load-on-startup>
 		
 		<!-- 파일업로드 설정 시작 -->
@@ -48,7 +58,15 @@ web.xml : tomcat 서버의 설정
 		</multipart-config>
 		<!-- 파일업로드 설정 끝 -->
 	</servlet>
-		
+	<!-- 스프링 시큐리티가 제공하는 서블릿 필터 클래스를 서블릿 컨테이너에 등록 시작 -->
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 	<servlet-mapping>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
@@ -94,6 +112,21 @@ web.xml : tomcat 서버의 설정
 	<error-page>
 		<error-code>500</error-code>
 		<location>/error/error500</location>
+	</error-page>
+
+	<!--
+		예외 타입을 사용한 에러 페이지 설정 시작
+		Web Container(Tomcat Server) 설정 파일(web.xml)의 exception-type 태그 요소에 예외 타입을 설정하고
+		location 요소에 이동 대상 페이지 및 URI를 지정함
+
+		IOExceptio, SQLException, NullPointerException, ArrayIndexOutOfBoundsException, ArtimeticException
+	-->
+	<error-page>
+		<exception-type>java.lang.Exception</exception-type>
+		<location>/error/errorException</location>
+	</error-page>
+	<error-page>
+		<location>/error/errorDefault</location>
 	</error-page>
 </web-app>
 
