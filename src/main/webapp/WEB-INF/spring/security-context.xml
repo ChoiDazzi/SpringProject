@@ -8,6 +8,10 @@
     <!-- xmlns:security: 스프링 시큐리티가 제공하는 XML 네임스페이스를 활성화 -->
     <!-- 인가(authorization) -->
     <bean id="customAccessDenied" class="kr.or.ddit.security.CustomAccessDeniedHandler">
+    </bean>
+
+    <!-- 로그인 성공 처리 / 로그인 성공 후 이력 로그를 기록 (DB, 파일)과 같은 작업을 하고자 사용 -->
+    <bean id="customLoginSuccess" class="kr.or.ddit.security.CustomLoginSuccessHandler">
 
     </bean>
 
@@ -21,10 +25,14 @@
         <!-- 폼 기반 인증 기능 사용 -->
 <!--        <security:form-login/>-->
         <!-- 사용자가정의한 로그인 페이지(인증: Authentication) 의 URI를 지정 -->
-        <security:form-login login-page="/member/loginMember" />
+<!--        <security:form-login login-page="/member/loginMember" />-->
+
+       <!-- 인증 성공 시 처리해줄 클래스의 인스턴스 명 작성 -->
+        <security:form-login login-page="/member/loginMember" authentication-success-handler-ref="customLoginSuccess"/>
 
 
-
+        <!-- 생략 가능 -->
+<!--        <security:csrf disabled="true" />-->
         <!--
             1) 선제조건: 계정/비밀번호 일치 => 로그인 가능
             2) URL에 대한 권한 없어야 함
