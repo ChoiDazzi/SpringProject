@@ -6,6 +6,11 @@
       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!-- xmlns:security: 스프링 시큐리티가 제공하는 XML 네임스페이스를 활성화 -->
+    <!-- 인가(authorization) -->
+    <bean id="customAccessDenied" class="kr.or.ddit.security.CustomAccessDeniedHandler">
+
+    </bean>
+
     <security:http>
         <!-- 접근 제한 설정 : 시큐리티 설정을 통해서 특정 URI에 대한 접근을 제한할 수 있음; -->
         <security:intercept-url pattern="/freeboard/list" access="permitAll()"/>
@@ -13,14 +18,23 @@
         <security:intercept-url pattern="/notice/list" access="permitAll()"/>
         <security:intercept-url pattern="/notice/register" access="hasRole('ROLE_ADMIN')"/>
 
-        <!-- xmlns:security: 스프링 시큐리티가 제공하는 XML 네임스페이스를 활성화 -->
-        <security:form-login/>
+        <!-- 폼 기반 인증 기능 사용 -->
+<!--        <security:form-login/>-->
+        <!-- 사용자가정의한 로그인 페이지(인증: Authentication) 의 URI를 지정 -->
+        <security:form-login login-page="/member/loginMember" />
+
+
 
         <!--
             1) 선제조건: 계정/비밀번호 일치 => 로그인 가능
             2) URL에 대한 권한 없어야 함
          -->
-        <security:access-denied-handler error-page="/security/accessError"/>
+    <!--<security:access-denied-handler error-page="/security/accessError"/>-->
+    <!-- [접근 거부 처리(사용자 정의)]
+        접근 거부가 발생한 상황에 단순 메시지 처리 이상의 다양한 처리를 하고 싶다면
+        AccessDeniedHandler를 직접 구현해야 함.
+    -->
+    <security:access-denied-handler ref="customAccessDenied" />
     </security:http>
 
     <!-- authentication: 인증(로그인) -->

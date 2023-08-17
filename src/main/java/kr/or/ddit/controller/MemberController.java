@@ -158,4 +158,9 @@ public class MemberController {
             }
             return "member/result"; //유효성 검사 통과
         }
+
+        @GetMapping("/loginMember")
+        public String loginMember() {
+            return "member/loginMember";
+        }
     }
