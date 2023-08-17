@@ -15,9 +15,25 @@
 
         <!-- xmlns:security: 스프링 시큐리티가 제공하는 XML 네임스페이스를 활성화 -->
         <security:form-login/>
+
+        <!--
+            1) 선제조건: 계정/비밀번호 일치 => 로그인 가능
+            2) URL에 대한 권한 없어야 함
+         -->
+        <security:access-denied-handler error-page="/security/accessError"/>
     </security:http>
 
     <!-- authentication: 인증(로그인) -->
+    <!--
+         스프링 시큐리티 5버전부터는 패스워드 암호화 처리기를 반드시 이용해야 한다.
+         사용하지 않으려면 noop문자열을 비밀번호 앞에 사용함
+    -->
     <security:authentication-manager>
+        <security:authentication-provider>
+            <security:user-service>
+                <security:user name="member" password="{noop}java" authorities="ROLE_MEMBER"/>
+                <security:user name="admin" password="{noop}java" authorities="ROLE_ADMIN"/>
+            </security:user-service>
+        </security:authentication-provider>
     </security:authentication-manager>
 </beans>
