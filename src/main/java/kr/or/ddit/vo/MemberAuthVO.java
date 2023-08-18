@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class MemberAuthVO {
-    private int userNo;
-    private String auth;
+	private int userNo;
+	private String auth;
 }

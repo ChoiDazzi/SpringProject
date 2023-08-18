@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
 	<!-- Brand Logo -->
 	<a href="index3.html" class="brand-link"> <img
@@ -11,17 +12,32 @@
 
 	<!-- Sidebar -->
 	<div class="sidebar">
-		<!-- Sidebar user panel (optional) -->
-		<div class="user-panel mt-3 pb-3 mb-3 d-flex">
-			<div class="image">
-				<img src="/resources/adminlte/dist/img/user2-160x160.jpg"
-					class="img-circle elevation-2" alt="User Image">
+		<!-- 로그인 안한 경우 -->
+		<sec:authorize access="isAnonymous()">
+			<!-- Sidebar user panel (optional) -->
+			<div class="user-panel mt-3 pb-3 mb-3 d-flex">
+				<div class="image">
+					<img src="/resources/adminlte/dist/img/user2-160x160.jpg"
+						class="img-circle elevation-2" alt="User Image">
+				</div>
+				<div class="info">
+					<a href="#" class="d-block">햠</a>
+				</div>
 			</div>
-			<div class="info">
-				<a href="#" class="d-block">Alexander Pierce</a>
+		</sec:authorize>
+		<!-- 로그인 한 경우 -->
+		<sec:authorize access="isAuthenticated()">
+			<!-- Sidebar user panel (optional) -->
+			<div class="user-panel mt-3 pb-3 mb-3 d-flex">
+				<div class="image">
+					<img src="/resources/adminlte/dist/img/logham.png"
+						class="img-circle elevation-2" alt="User Image">
+				</div>
+				<div class="info">
+					<a href="#" class="d-block">로그인 햠</a>
+				</div>
 			</div>
-		</div>
-
+		</sec:authorize>
 		<!-- SidebarSearch Form -->
 		<div class="form-inline">
 			<div class="input-group" data-widget="sidebar-search">
