@@ -2,7 +2,7 @@ package kr.or.ddit.controller;
 
 import kr.or.ddit.vo.AddressVO;
 import kr.or.ddit.vo.CardVO;
-import kr.or.ddit.vo.MemberVO;
+import kr.or.ddit.vo.MemberVO_backup;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,7 +48,7 @@ public class ModelController {
 
     @GetMapping("/read02")
     public String read02(Model model) {
-        MemberVO memberVO = new MemberVO();
+        MemberVO_backup memberVO = new MemberVO_backup();
 
         memberVO.setUserId("dazzi");
         memberVO.setPassword("java");
@@ -69,7 +69,7 @@ public class ModelController {
     //Model객체에 자바빈즈 클래스 객체를 특정한 이름을 지정해 전달 가능
     @GetMapping("/read03")
     public String read03(Model model) {
-        MemberVO memberVO = new MemberVO();
+        MemberVO_backup memberVO = new MemberVO_backup();
 
         memberVO.setUserId("dazzi");
         memberVO.setPassword("java");
@@ -104,7 +104,7 @@ public class ModelController {
 
     @GetMapping("/read05")
     public String read05(Model model) {
-        MemberVO memberVO = new MemberVO();
+        MemberVO_backup memberVO = new MemberVO_backup();
 
         AddressVO addressVO = new AddressVO();
         addressVO.setZonecode("12345");
@@ -157,7 +157,7 @@ public class ModelController {
     //자바빈즈 규칙(멤버변수, Constructor, getter/setter) 에 맞는 객체는
     //매개변수로 선언하면 기본적으로 forwarding시 데이터를 전달함
     @PostMapping("/register04")
-    public String register04(MemberVO memberVO) {
+    public String register04(MemberVO_backup memberVO) {
         log.info("memberVO={}", memberVO);
 
         return "model/result";

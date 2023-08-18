@@ -217,5 +217,23 @@ FROM U
 WHERE U.RNUM BETWEEN (3 * 10) - (10 - 1) AND (3 * 10);
 /
 
+--[230817]
+--사용자(1)
+CREATE TABLE USERS(
+                      USERNAME VARCHAR2(150),
+                      PASSWORD VARCHAR2(150),
+                      ENABLED VARCHAR2(1),
+                      CONSTRAINT PK_USERS PRIMARY KEY (USERNAME)
+);
+
+--권한들(N)
+--기본키(P.K) 와 외래키(F.K)의 자료형(데이터 타입) 과 크기는 동일해야 함
+CREATE TABLE AUTHORITIES(
+                            USERNAME VARCHAR2(150),
+                            AUTHORITY VARCHAR2(150),
+                            CONSTRAINT PK_AUTH PRIMARY KEY (USERNAME, AUTHORITY),
+                            CONSTRAINT FK_AUTH FOREIGN KEY (USERNAME)
+                                REFERENCES USERS(USERNAME)
+);
 
 

@@ -1,7 +1,7 @@
 package kr.or.ddit.controller;
 
 import kr.or.ddit.vo.AddressVO;
-import kr.or.ddit.vo.MemberVO;
+import kr.or.ddit.vo.MemberVO_backup;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,13 +25,13 @@ public class MemberController {
     //Model에 폼 객체를 추가하지 않으면 오류 발생
     @GetMapping("/registerForm01")
     public String registerForm01(Model model) {
-        model.addAttribute("memberVO", new MemberVO());
+        model.addAttribute("memberVO", new MemberVO_backup());
         return "member/registerForm01";
     }
 
     @GetMapping("/registerForm02")
     public String registerForm02(Model model) {
-        model.addAttribute("memberVO", new MemberVO());
+        model.addAttribute("memberVO", new MemberVO_backup());
         return "member/registerForm02";
     }
 
@@ -43,7 +43,7 @@ public class MemberController {
         소문자로 변환하여 처리함
      */
     @GetMapping("/registerForm05")
-    public String registerForm05(MemberVO memberVO) {
+    public String registerForm05(MemberVO_backup memberVO) {
         memberVO.setUserId("dazzi");
         memberVO.setUserName("seoyeon");
 
@@ -52,7 +52,7 @@ public class MemberController {
 
     //@ModelAttribute 로 폼 객체의 속성명을 직접 지정할 수 있다.
     @GetMapping("/registerForm06")
-    public String registerForm06(@ModelAttribute("user") MemberVO memberVO) {
+    public String registerForm06(@ModelAttribute("user") MemberVO_backup memberVO) {
         memberVO.setUserId("dazzi");
         memberVO.setUserName("seoyeon");
         memberVO.setCoin(500);
@@ -70,7 +70,7 @@ public class MemberController {
     }
 
     @GetMapping("/registerForm08")
-    public String registerForm08(@ModelAttribute("memberVO") MemberVO memberVO, Model model) {
+    public String registerForm08(@ModelAttribute("memberVO") MemberVO_backup memberVO, Model model) {
         memberVO.setUserId("dazzi");
         memberVO.setUserName("seoyeon");
         memberVO.setPassword("java"); //view에 반영 안 됨
@@ -111,7 +111,7 @@ public class MemberController {
 
     //입력값 검증을 할 도메인 클래스에 @Validated를 지정함
     @PostMapping("/registerForm08Post")
-    public String registerForm08Post(@Validated @ModelAttribute("memberVO") MemberVO memberVO,
+    public String registerForm08Post(@Validated @ModelAttribute("memberVO") MemberVO_backup memberVO,
                                      BindingResult result, Model model) {
         log.info("memberVO={}", memberVO);
         if (result.hasErrors()) {//유효성 검증 실패

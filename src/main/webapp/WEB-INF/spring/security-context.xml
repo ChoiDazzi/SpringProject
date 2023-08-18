@@ -15,6 +15,10 @@
 
     </bean>
 
+    <!-- 스프링 시큐리티의 UserDetailsService를 구현한 클래스를 빈(객체)으로 등록 -->
+    <bean id="customUserDetailsService" class="kr.or.ddit.security.CustomUserDetailsService"></bean>
+
+    <bean id="customPasswordEncoder" class="kr.or.ddit.security.CustomNoOpPasswordEncoder"></bean>
     <security:http>
         <!-- 접근 제한 설정 : 시큐리티 설정을 통해서 특정 URI에 대한 접근을 제한할 수 있음; -->
         <security:intercept-url pattern="/freeboard/list" access="permitAll()"/>
@@ -43,6 +47,8 @@
         AccessDeniedHandler를 직접 구현해야 함.
     -->
     <security:access-denied-handler ref="customAccessDenied" />
+    <!-- 로그아웃 처리. 로그아웃 후에 세션읆 무효화 함  -->
+    <security:logout logout-url="/logout" invalidate-session="true"/>
     </security:http>
 
     <!-- authentication: 인증(로그인) -->
@@ -51,11 +57,23 @@
          사용하지 않으려면 noop문자열을 비밀번호 앞에 사용함
     -->
     <security:authentication-manager>
-        <security:authentication-provider>
-            <security:user-service>
-                <security:user name="member" password="{noop}java" authorities="ROLE_MEMBER"/>
-                <security:user name="admin" password="{noop}java" authorities="ROLE_ADMIN"/>
-            </security:user-service>
+        <security:authentication-provider user-service-ref="customUserDetailsService">
+            <!-- DB 사용을 위해tadaSource(root-context.xml) 를 지정함-->
+<!--            <security:jdbc-user-service data-source-ref="dataSource" />-->
+            <!--
+                users-by-username-query: 인증할 때 사용될 쿼리
+                authorities-by-username-query: 권한을 확일할 떄 사용될 쿼리
+            -->
+<!--            <security:jdbc-user-service data-source-ref="dataSource"-->
+<!--                                        users-by-username-query="SELECT USER_NO, USER_PW, ENABLED FROM MEMBER WHERE USER_NO = ?"-->
+<!--                                        authorities-by-username-query="SELECT A.USER_NO, B.AUTH FROM MEMBER A, MEMBER_AUTH B WHERE A.USER_NO = B.USER_NO AND A.USER_NO = ?"/>-->
+            <!-- 사용자가 정의한 비밀번호 암호화 처리기를 지정함 -->
+
+            <security:password-encoder ref="customPasswordEncoder" />
+<!--            <security:user-service>-->
+<!--                <security:user name="member" password="{noop}java" authorities="ROLE_MEMBER"/>-->
+<!--                <security:user name="admin" password="{noop}java" authorities="ROLE_ADMIN"/>-->
+<!--            </security:user-service>-->
         </security:authentication-provider>
     </security:authentication-manager>
 </beans>

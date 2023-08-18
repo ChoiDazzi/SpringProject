@@ -18,7 +18,7 @@ import lombok.Data;
 //자바빈 클래스
 //Controller에서 먼저 골뱅이Validated 애너테이션을 지정하여 입력값 검증 기능을 활성화
 @Data
-public class MemberVO {
+public class MemberVO_backup {
 	//입력값 검증 규칙을 지정
 	//NotBlank : 필수항목
 	@NotBlank(message="아이디는 필수입니다.")

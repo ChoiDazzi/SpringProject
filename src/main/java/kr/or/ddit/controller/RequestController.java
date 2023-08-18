@@ -15,8 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import kr.or.ddit.util.FileUploadUtils;
-import kr.or.ddit.vo.MemberVO;
+import kr.or.ddit.vo.MemberVO_backup;
 import lombok.extern.slf4j.Slf4j;
 
 //스프링이 자바빈즈(객체)로 관리
@@ -163,7 +162,7 @@ public class RequestController {
      */
     @ResponseBody
     @PostMapping("/register0401")
-    public MemberVO register0401(String userId, MemberVO memberVO, int coin) {
+    public MemberVO_backup register0401(String userId, MemberVO_backup memberVO, int coin) {
         log.info("userId : " + memberVO.getUserId());
         log.info("password : " + memberVO.getPassword());
         log.info("coin : " + memberVO.getCoin());
@@ -205,7 +204,7 @@ public class RequestController {
     //  dateOfBirth=2023/08/07 : 날짜 문자열 형식에 맞아서 Date 타입으로 변환 성공!
     @ResponseBody
     @GetMapping("/registerByGet02")
-    public String registerByGet02(MemberVO memberVO) {
+    public String registerByGet02(MemberVO_backup memberVO) {
 
         log.info("userId : " + memberVO.getUserId());
         //dateOfBirth : Mon Aug 07 00:00:00 KST 2023
@@ -231,7 +230,7 @@ public class RequestController {
             , String nationality, String[] cars, ArrayList<String> homeList
             , String[] hobbys, String developer
             , boolean foreigner, String introduction
-            , MemberVO memberVO) {
+            , MemberVO_backup memberVO) {
         log.info("userId : " + userId);
         log.info("coin : " + coin);
         //dateOfBirth : Mon Aug 07 00:00:00 KST 2023
@@ -334,7 +333,7 @@ public class RequestController {
     //자바빈즈 매개변수를 통해 파일업로드 폼 파일 요소값과 텍스트필드 요소값을 처리함
     @ResponseBody
     @PostMapping("/registerFile03Post")
-    public String registerFile03Post(MemberVO memberVO) {
+    public String registerFile03Post(MemberVO_backup memberVO) {
         //텍스트필드 요소값
         log.info("userId : " + memberVO.getUserId());
         log.info("password : " + memberVO.getPassword());
@@ -362,7 +361,7 @@ public class RequestController {
     //자바빈즈 매개변수를 통해 파일업로드 폼 파일 요소값과 텍스트필드 요소값을 처리함
     @ResponseBody
     @PostMapping("/registerFile04Post")
-    public String registerFile04Post(MemberVO memberVO) {
+    public String registerFile04Post(MemberVO_backup memberVO) {
         //텍스트필드 요소값
         log.info("userId : " + memberVO.getUserId());
         log.info("password : " + memberVO.getPassword());
@@ -409,7 +408,7 @@ public class RequestController {
     // /req/registerFile06Post
     @ResponseBody
     @PostMapping("/registerFile06Post")
-    public String registerFile06Post(MemberVO memberVO) {
+    public String registerFile06Post(MemberVO_backup memberVO) {
 
         log.info("userId : " + memberVO.getUserId());
         log.info("password : " + memberVO.getPassword());
